@@ -1,12 +1,16 @@
-﻿using AutoFixture;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoFixture;
 using CleanArchitectureWorkshop.Api.Bank;
 using CleanArchitectureWorkshop.Application.Bank.GetStatements;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Xunit;
 
 namespace CleanArchitectureWorkshop.Api.Tests.Bank;
+
 
 public class AccountControllerTest
 {
