@@ -40,8 +40,8 @@ namespace CleanArchitectureWorkshop.Acceptance.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "AccountFeature", "User can deposit into Account\nUser can withdraw from an Account\nUser can retrieve" +
-                    " a bank statement to the console", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "AccountFeature", "User can deposit into Account\r\nUser can withdraw from an Account\r\nUser can retrie" +
+                    "ve a bank statement to the console", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -131,6 +131,36 @@ namespace CleanArchitectureWorkshop.Acceptance.Features
                             "1000"});
 #line 12
         testRunner.Then("I should see these statements:", ((string)(null)), table1, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Prints all statements while no operations where made on my account")]
+        [Xunit.TraitAttribute("FeatureTitle", "AccountFeature")]
+        [Xunit.TraitAttribute("Description", "Prints all statements while no operations where made on my account")]
+        [Xunit.TraitAttribute("Category", "Acceptance")]
+        public void PrintsAllStatementsWhileNoOperationsWhereMadeOnMyAccount()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "Acceptance"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Prints all statements while no operations where made on my account", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 19
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 20
+        testRunner.When("I retrieve the account statements", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 21
+        testRunner.Then("I should see no statements", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

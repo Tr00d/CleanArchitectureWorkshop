@@ -32,4 +32,11 @@ public class AccountSteps
         var response = await this.driver.GetRetrievedStatementsAsync();
         response.History.Should().BeEquivalentTo(table.CreateSet<StatementModel>());
     }
+
+    [Then(@"I should see no statements")]
+    public async Task ThenIShouldSeeNoStatements()
+    {
+        var response = await this.driver.GetRetrievedStatementsAsync();
+        response.History.Should().BeEmpty();
+    }
 }

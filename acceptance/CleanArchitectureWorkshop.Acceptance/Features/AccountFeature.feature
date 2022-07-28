@@ -14,3 +14,8 @@ User can retrieve a bank statement to the console
           | 20 January 2021 | -500   | 2500    |
           | 15 January 2021 | 2000   | 3000    |
           | 10 January 2021 | 1000   | 1000    |
+
+    @Acceptance
+    Scenario: Prints all statements while no operations where made on my account
+        When I retrieve the account statements
+        Then I should see no statements

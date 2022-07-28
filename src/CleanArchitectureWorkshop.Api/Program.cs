@@ -1,5 +1,6 @@
 using CleanArchitectureWorkshop.Application;
 using CleanArchitectureWorkshop.Infrastructure;
+using CleanArchitectureWorkshop.Infrastructure.Bank;
 using FluentValidation.AspNetCore;
 using MediatR;
 
@@ -23,7 +24,14 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+EnsureDatabaseCreated(app);
 app.Run();
+
+void EnsureDatabaseCreated(IHost webApplication)
+{
+    var context = webApplication.Services.CreateScope().ServiceProvider.GetRequiredService<BankContext>();
+    context.Database.EnsureCreated();
+}
 
 public partial class Program
 {

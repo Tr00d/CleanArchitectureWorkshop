@@ -7,8 +7,11 @@
   <component name="ChangeListManager">
     <list default="true" id="e2947297-f074-4dfd-88b1-320924b60392" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CleanArchitectureWorkshop/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CleanArchitectureWorkshop/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CleanArchitectureWorkshop.sln" beforeDir="false" afterPath="$PROJECT_DIR$/CleanArchitectureWorkshop.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/Features/AccountFeature.feature" beforeDir="false" afterPath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/Features/AccountFeature.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/Features/AccountFeature.feature.cs" beforeDir="false" afterPath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/Features/AccountFeature.feature.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/Steps/AccountSteps.cs" beforeDir="false" afterPath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/Steps/AccountSteps.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/appsettings.Acceptance.json" beforeDir="false" afterPath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/appsettings.Acceptance.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Api/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +20,10 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/abd84ebfa3166e74c2bc391b7d9893229132e32438143c9adc0eee40ee9c52/TestExecutionEngine.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/fe2f12f3e68e67de84733fecd21594c6ce7cce62332ffc3ab5c28d4deb98ea4c/DbContextServices.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -95,6 +102,7 @@
       <workItem from="1658822396410" duration="9619000" />
       <workItem from="1658836649709" duration="286000" />
       <workItem from="1658836953296" duration="310000" />
+      <workItem from="1659016699769" duration="1741000" />
     </task>
     <servers />
   </component>
@@ -122,18 +130,6 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/src/CleanArchitectureWorkshop.Api/Bank/AccountController.cs</url>
-          <line>13</line>
-          <properties documentPath="C:\Users\gfaas002\Sources\CleanArchitectureWorkshop\src\CleanArchitectureWorkshop.Api\Bank\AccountController.cs" initialLine="13" containingFunctionPresentation="constructor 'AccountController'" />
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/src/CleanArchitectureWorkshop.Api/Bank/AccountController.cs</url>
-          <line>19</line>
-          <properties documentPath="C:\Users\gfaas002\Sources\CleanArchitectureWorkshop\src\CleanArchitectureWorkshop.Api\Bank\AccountController.cs" initialLine="19" containingFunctionPresentation="method 'GetStatementsAsync'" />
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/src/CleanArchitectureWorkshop.Api/Bank/AccountController.cs</url>
           <line>26</line>
           <properties documentPath="C:\Users\gfaas002\Sources\CleanArchitectureWorkshop\src\CleanArchitectureWorkshop.Api\Bank\AccountController.cs" initialLine="26" containingFunctionPresentation="method 'WithdrawAsync'" />
           <option name="timeStamp" value="12" />
@@ -145,10 +141,43 @@
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/Support/FakeWebApplicationFactory.cs</url>
-          <line>12</line>
-          <properties documentPath="C:\Users\gfaas002\Sources\CleanArchitectureWorkshop\acceptance\CleanArchitectureWorkshop.Acceptance\Support\FakeWebApplicationFactory.cs" initialLine="12" containingFunctionPresentation="method 'ConfigureWebHost'" />
-          <option name="timeStamp" value="14" />
+          <url>file://$PROJECT_DIR$/src/CleanArchitectureWorkshop.Application/Bank/GetStatements/GetStatementsHandler.cs</url>
+          <line>15</line>
+          <properties documentPath="C:\Users\gfaas002\Sources\CleanArchitectureWorkshop\src\CleanArchitectureWorkshop.Application\Bank\GetStatements\GetStatementsHandler.cs" initialLine="15" containingFunctionPresentation="method 'Handle'">
+            <startOffsets>
+              <option value="526" />
+            </startOffsets>
+            <endOffsets>
+              <option value="527" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/src/CleanArchitectureWorkshop.Infrastructure/Bank/BankRepository.cs</url>
+          <line>16</line>
+          <properties documentPath="C:\Users\gfaas002\Sources\CleanArchitectureWorkshop\src\CleanArchitectureWorkshop.Infrastructure\Bank\BankRepository.cs" initialLine="16" containingFunctionPresentation="method 'GetAccount'">
+            <startOffsets>
+              <option value="434" />
+            </startOffsets>
+            <endOffsets>
+              <option value="435" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/src/CleanArchitectureWorkshop.Api/Program.cs</url>
+          <line>28</line>
+          <properties documentPath="C:\Users\gfaas002\Sources\CleanArchitectureWorkshop\src\CleanArchitectureWorkshop.Api\Program.cs" initialLine="28" containingFunctionPresentation="">
+            <startOffsets>
+              <option value="889" />
+            </startOffsets>
+            <endOffsets>
+              <option value="950" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
