@@ -1,10 +1,10 @@
-﻿namespace CleanArchitectureWorkshop.Domain.Bank;
+﻿namespace CleanArchitectureWorkshop.Domain.Bank.History;
 
-public class Account
+public class AccountHistory
 {
     private readonly IEnumerable<Operation> operations;
 
-    public Account(IEnumerable<Operation> operations)
+    public AccountHistory(IEnumerable<Operation> operations)
     {
         this.operations = operations;
     }

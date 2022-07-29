@@ -1,4 +1,4 @@
-﻿using CleanArchitectureWorkshop.Domain.Bank;
+﻿using CleanArchitectureWorkshop.Domain.Bank.History;
 
 namespace CleanArchitectureWorkshop.Application.Tests.Bank;
 
@@ -14,5 +14,5 @@ public class AccountBuilder
         return this;
     }
 
-    public Account Create() => new(this.statements);
+    public AccountHistory Create() => new(this.statements);
 }

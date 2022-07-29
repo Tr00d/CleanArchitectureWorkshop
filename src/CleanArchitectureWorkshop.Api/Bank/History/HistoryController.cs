@@ -2,15 +2,15 @@ using CleanArchitectureWorkshop.Application.Bank.History.GetStatements;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CleanArchitectureWorkshop.Api.Bank
+namespace CleanArchitectureWorkshop.Api.Bank.History
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class HistoryController : ControllerBase
     {
         private readonly IMediator mediator;
 
-        public AccountController(IMediator mediator)
+        public HistoryController(IMediator mediator)
         {
             this.mediator = mediator;
         }
@@ -20,18 +20,6 @@ namespace CleanArchitectureWorkshop.Api.Bank
         {
             var response = await this.mediator.Send(new GetStatementsQuery());
             return this.Ok(response);
-        }
-
-        [HttpPost("deposit")]
-        public Task<IActionResult> WithdrawAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpPost("withdraw")]
-        public Task<IActionResult> DepositAsync()
-        {
-            throw new NotImplementedException();
         }
     }
 }

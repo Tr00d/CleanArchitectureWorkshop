@@ -1,4 +1,4 @@
-﻿using CleanArchitectureWorkshop.Domain.Bank;
+﻿using CleanArchitectureWorkshop.Domain.Bank.History;
 
 namespace CleanArchitectureWorkshop.Infrastructure.Bank.Entities;
 

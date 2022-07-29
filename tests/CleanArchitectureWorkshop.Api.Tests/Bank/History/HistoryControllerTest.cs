@@ -1,28 +1,27 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
-using CleanArchitectureWorkshop.Api.Bank;
-using CleanArchitectureWorkshop.Application.Bank.GetStatements;
+using CleanArchitectureWorkshop.Api.Bank.History;
+using CleanArchitectureWorkshop.Application.Bank.History.GetStatements;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
-namespace CleanArchitectureWorkshop.Api.Tests.Bank;
+namespace CleanArchitectureWorkshop.Api.Tests.Bank.History;
 
-
-public class AccountControllerTest
+public class HistoryControllerTest
 {
-    private readonly AccountController controller;
+    private readonly HistoryController controller;
     private readonly Fixture fixture;
     private readonly Mock<IMediator> mockMediator;
 
-    public AccountControllerTest()
+    public HistoryControllerTest()
     {
         this.fixture = new Fixture();
         this.mockMediator = new Mock<IMediator>();
-        this.controller = new AccountController(this.mockMediator.Object);
+        this.controller = new HistoryController(this.mockMediator.Object);
     }
 
     [Fact]

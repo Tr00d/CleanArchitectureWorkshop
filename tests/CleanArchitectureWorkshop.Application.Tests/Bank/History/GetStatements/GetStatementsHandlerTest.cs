@@ -1,22 +1,22 @@
 ﻿using AutoFixture;
-using CleanArchitectureWorkshop.Application.Bank.GetStatements;
-using CleanArchitectureWorkshop.Application.Bank.Persistence;
-using CleanArchitectureWorkshop.Domain.Bank;
+using CleanArchitectureWorkshop.Application.Bank.History.GetStatements;
+using CleanArchitectureWorkshop.Application.Bank.History.Persistence;
+using CleanArchitectureWorkshop.Domain.Bank.History;
 using FluentAssertions;
 using Moq;
 
-namespace CleanArchitectureWorkshop.Application.Tests.Bank.GetStatements;
+namespace CleanArchitectureWorkshop.Application.Tests.Bank.History.GetStatements;
 
 public class GetStatementsHandlerTest
 {
     private readonly Fixture fixture;
     private readonly GetStatementsHandler handler;
-    private readonly Mock<IBankRepository> mockRepository;
+    private readonly Mock<IHistoryRepository> mockRepository;
 
     public GetStatementsHandlerTest()
     {
         this.fixture = new Fixture();
-        this.mockRepository = new Mock<IBankRepository>();
+        this.mockRepository = new Mock<IHistoryRepository>();
         this.handler = new GetStatementsHandler(this.mockRepository.Object);
     }
 
@@ -24,7 +24,8 @@ public class GetStatementsHandlerTest
     [Trait("Category", "Unit")]
     public async Task Handle_ShouldReturnEmptyList_GivenAccountContainsNoStatements()
     {
-        this.mockRepository.Setup(repository => repository.GetAccount()).ReturnsAsync(AccountBuilder.Build().Create);
+        this.mockRepository.Setup(repository => repository.GetAccountHistory())
+            .ReturnsAsync(AccountBuilder.Build().Create);
         (await this.handler.Handle(this.fixture.Create<GetStatementsQuery>(), CancellationToken.None))
             .History
             .Should()
@@ -48,7 +49,7 @@ public class GetStatementsHandlerTest
             new(new DateTime(2021, 01, 15), 2000, 3000),
             new(new DateTime(2021, 01, 10), 1000, 1000),
         };
-        this.mockRepository.Setup(repository => repository.GetAccount()).ReturnsAsync(account);
+        this.mockRepository.Setup(repository => repository.GetAccountHistory()).ReturnsAsync(account);
         var result = await this.handler.Handle(this.fixture.Create<GetStatementsQuery>(), CancellationToken.None);
         result.History.Should().BeEquivalentTo(expectedStatements, options => options.WithStrictOrdering());
     }

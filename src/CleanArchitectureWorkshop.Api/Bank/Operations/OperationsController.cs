@@ -1,25 +1,17 @@
-using CleanArchitectureWorkshop.Application.Bank.History.GetStatements;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CleanArchitectureWorkshop.Api.Bank
+namespace CleanArchitectureWorkshop.Api.Bank.Operations
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class OperationsController : ControllerBase
     {
         private readonly IMediator mediator;
 
-        public AccountController(IMediator mediator)
+        public OperationsController(IMediator mediator)
         {
             this.mediator = mediator;
-        }
-
-        [HttpGet("statements")]
-        public async Task<IActionResult> GetStatementsAsync()
-        {
-            var response = await this.mediator.Send(new GetStatementsQuery());
-            return this.Ok(response);
         }
 
         [HttpPost("deposit")]

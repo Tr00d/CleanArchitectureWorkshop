@@ -1,20 +1,20 @@
-﻿using CleanArchitectureWorkshop.Application.Bank.Persistence;
+﻿using CleanArchitectureWorkshop.Application.Bank.History.Persistence;
 using MediatR;
 
-namespace CleanArchitectureWorkshop.Application.Bank.GetStatements;
+namespace CleanArchitectureWorkshop.Application.Bank.History.GetStatements;
 
 public class GetStatementsHandler : IRequestHandler<GetStatementsQuery, GetStatementsResponse>
 {
-    private readonly IBankRepository repository;
+    private readonly IHistoryRepository repository;
 
-    public GetStatementsHandler(IBankRepository repository)
+    public GetStatementsHandler(IHistoryRepository repository)
     {
         this.repository = repository;
     }
 
     public async Task<GetStatementsResponse> Handle(GetStatementsQuery request, CancellationToken cancellationToken)
     {
-        var account = await this.repository.GetAccount();
+        var account = await this.repository.GetAccountHistory();
         var operations = account.GetOperations();
         var statements = new Stack<StatementModel>();
         operations

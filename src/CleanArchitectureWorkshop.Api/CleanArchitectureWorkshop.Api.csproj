@@ -18,10 +18,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Bank"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\CleanArchitectureWorkshop.Application\CleanArchitectureWorkshop.Application.csproj"/>
         <ProjectReference Include="..\CleanArchitectureWorkshop.Infrastructure\CleanArchitectureWorkshop.Infrastructure.csproj"/>
     </ItemGroup>

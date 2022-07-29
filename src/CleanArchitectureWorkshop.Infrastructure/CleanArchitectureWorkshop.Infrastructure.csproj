@@ -15,4 +15,8 @@
         <ProjectReference Include="..\CleanArchitectureWorkshop.Application\CleanArchitectureWorkshop.Application.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Folder Include="Bank\Operations"/>
+    </ItemGroup>
+
 </Project>

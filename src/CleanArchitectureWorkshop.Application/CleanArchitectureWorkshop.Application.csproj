@@ -19,4 +19,9 @@
         <ProjectReference Include="..\CleanArchitectureWorkshop.Domain\CleanArchitectureWorkshop.Domain.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Folder Include="Bank\History"/>
+        <Folder Include="Bank\Operations"/>
+    </ItemGroup>
+
 </Project>

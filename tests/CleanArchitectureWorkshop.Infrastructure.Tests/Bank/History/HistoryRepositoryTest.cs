@@ -1,21 +1,22 @@
-﻿using CleanArchitectureWorkshop.Domain.Bank;
+﻿using CleanArchitectureWorkshop.Domain.Bank.History;
 using CleanArchitectureWorkshop.Infrastructure.Bank;
 using CleanArchitectureWorkshop.Infrastructure.Bank.Entities;
+using CleanArchitectureWorkshop.Infrastructure.Bank.History;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitectureWorkshop.Infrastructure.Tests.Bank;
+namespace CleanArchitectureWorkshop.Infrastructure.Tests.Bank.History;
 
-public class BankRepositoryTest : IDisposable
+public class HistoryRepositoryTest : IDisposable
 {
     private const string ConnectionString = "Server=localhost; Database=Workshop; User Id=sa; Password=Password@123";
     private readonly BankContext context;
-    private readonly BankRepository repository;
+    private readonly HistoryRepository repository;
 
-    public BankRepositoryTest()
+    public HistoryRepositoryTest()
     {
         this.context = CreateContext();
-        this.repository = new BankRepository(this.context);
+        this.repository = new HistoryRepository(this.context);
     }
 
     public void Dispose()
@@ -41,7 +42,7 @@ public class BankRepositoryTest : IDisposable
         };
         await this.context.AddRangeAsync(transactions);
         await this.context.SaveChangesAsync();
-        var account = await this.repository.GetAccount();
+        var account = await this.repository.GetAccountHistory();
         account.GetOperations().Should().BeEquivalentTo(expectedOperations);
     }
 

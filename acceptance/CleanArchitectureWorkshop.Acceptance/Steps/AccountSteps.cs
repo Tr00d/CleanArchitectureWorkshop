@@ -1,5 +1,5 @@
 ﻿using CleanArchitectureWorkshop.Acceptance.Drivers;
-using CleanArchitectureWorkshop.Application.Bank.GetStatements;
+using CleanArchitectureWorkshop.Application.Bank.History.GetStatements;
 using FluentAssertions;
 using TechTalk.SpecFlow.Assist;
 

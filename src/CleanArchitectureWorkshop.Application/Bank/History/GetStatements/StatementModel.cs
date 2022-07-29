@@ -1,6 +1,6 @@
-﻿using CleanArchitectureWorkshop.Domain.Bank;
+﻿using CleanArchitectureWorkshop.Domain.Bank.History;
 
-namespace CleanArchitectureWorkshop.Application.Bank.GetStatements;
+namespace CleanArchitectureWorkshop.Application.Bank.History.GetStatements;
 
 public record StatementModel(DateTime Date, double Amount, double Balance)
 {
