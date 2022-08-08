@@ -4,36 +4,19 @@
     <projectFile profileName="CleanArchitectureWorkshop.Api">src/CleanArchitectureWorkshop.Api/CleanArchitectureWorkshop.Api.csproj</projectFile>
     <projectFile profileName="IIS Express">src/CleanArchitectureWorkshop.Api/CleanArchitectureWorkshop.Api.csproj</projectFile>
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="e2947297-f074-4dfd-88b1-320924b60392" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Api/Bank/History/HistoryController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Api/Bank/Operations/OperationsController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Domain/Bank/History/Operation.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CleanArchitectureWorkshop/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CleanArchitectureWorkshop/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/Drivers/AccountDriver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/Drivers/AccountDriver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CleanArchitectureWorkshop.sln" beforeDir="false" afterPath="$PROJECT_DIR$/CleanArchitectureWorkshop.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/CleanArchitectureWorkshop.Acceptance.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/CleanArchitectureWorkshop.Acceptance.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/Features/AccountFeature.feature" beforeDir="false" afterPath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/Features/AccountFeature.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/Steps/AccountSteps.cs" beforeDir="false" afterPath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/Steps/AccountSteps.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Api/Bank/AccountController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Api/Bank/AccountController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Api/CleanArchitectureWorkshop.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Api/CleanArchitectureWorkshop.Api.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Application/Bank/GetStatements/GetStatementsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Application/Bank/History/GetStatements/GetStatementsHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Application/Bank/GetStatements/GetStatementsQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Application/Bank/History/GetStatements/GetStatementsQuery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Application/Bank/GetStatements/GetStatementsResponse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Application/Bank/History/GetStatements/GetStatementsResponse.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Application/Bank/GetStatements/StatementModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Application/Bank/History/GetStatements/StatementModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Application/Bank/Persistence/IBankRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Application/Bank/History/Persistence/IHistoryRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Application/CleanArchitectureWorkshop.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Application/CleanArchitectureWorkshop.Application.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Domain/Bank/Account.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Domain/Bank/History/AccountHistory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Domain/Bank/Operation.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Domain/CleanArchitectureWorkshop.Domain.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Domain/CleanArchitectureWorkshop.Domain.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Infrastructure/Bank/BankRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Infrastructure/Bank/History/HistoryRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Infrastructure/Bank/Entities/Transaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Infrastructure/Bank/Entities/Transaction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/Features/AccountFeature.feature.cs" beforeDir="false" afterPath="$PROJECT_DIR$/acceptance/CleanArchitectureWorkshop.Acceptance/Features/AccountFeature.feature.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Api/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Api/appsettings.Development.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Infrastructure/CleanArchitectureWorkshop.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Infrastructure/CleanArchitectureWorkshop.Infrastructure.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Infrastructure/ServicesRegistration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/CleanArchitectureWorkshop.Infrastructure/ServicesRegistration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/CleanArchitectureWorkshop.Api.Tests/Bank/AccountControllerTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/CleanArchitectureWorkshop.Api.Tests/Bank/History/HistoryControllerTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/CleanArchitectureWorkshop.Application.Tests/Bank/AccountBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/CleanArchitectureWorkshop.Application.Tests/Bank/AccountBuilder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/CleanArchitectureWorkshop.Application.Tests/Bank/GetStatements/GetStatementsHandlerTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/CleanArchitectureWorkshop.Application.Tests/Bank/History/GetStatements/GetStatementsHandlerTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/CleanArchitectureWorkshop.Application.Tests/CleanArchitectureWorkshop.Application.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/tests/CleanArchitectureWorkshop.Application.Tests/CleanArchitectureWorkshop.Application.Tests.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/CleanArchitectureWorkshop.Infrastructure.Tests/Bank/BankRepositoryTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/CleanArchitectureWorkshop.Infrastructure.Tests/Bank/History/HistoryRepositoryTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/CleanArchitectureWorkshop.Infrastructure.Tests/CleanArchitectureWorkshop.Infrastructure.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/tests/CleanArchitectureWorkshop.Infrastructure.Tests/CleanArchitectureWorkshop.Infrastructure.Tests.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,9 +32,8 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/56c665453e61b7a241e4db6c184a5c6e713678f06c873acdeffaff638f9486/CallSiteValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/abd84ebfa3166e74c2bc391b7d9893229132e32438143c9adc0eee40ee9c52/TestExecutionEngine.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/fe2f12f3e68e67de84733fecd21594c6ce7cce62332ffc3ab5c28d4deb98ea4c/DbContextServices.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f60fa3911d41439dbaf5e1217938820d577d8/0f/47902235/SqlConnection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f60fa3911d41439dbaf5e1217938820d577d8/95/db4a8d8f/SqlConnection.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -76,6 +58,11 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/tr00d/Sources/CleanArchitectureWorkshop/README.md&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;http.certificates&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -132,6 +119,7 @@
       <workItem from="1658836953296" duration="310000" />
       <workItem from="1659016699769" duration="2205000" />
       <workItem from="1659077189755" duration="2409000" />
+      <workItem from="1659967146305" duration="695000" />
     </task>
     <task id="LOCAL-00001" summary="Fix database creation problem">
       <created>1659018990361</created>

@@ -1,14 +1,10 @@
 ﻿Feature: AccountFeature
 User can deposit into Account
 User can withdraw from an Account
-User can retrieve a bank statement to the console
-Other ideas:
-- Cannot withdraw more than what's available on the account
-- Cannot withdraw more than 2500 on 24hrs
-- Add validation for commands (amounts must be positive)
-    
+User can retrieve statements
+
     @Acceptance
-    Scenario: Prints all statements with balance from newest to oldest
+    Scenario: Retrieve all statements with balance from newest to oldest
         Given I make a deposit of 1000 on '10 January 2021'
         And I make a deposit of 2000 on '15 January 2021'
         And I make a withdrawal of 500 on '20 January 2021'

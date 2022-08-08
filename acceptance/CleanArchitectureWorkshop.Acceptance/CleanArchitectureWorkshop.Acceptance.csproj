@@ -13,6 +13,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.7"/>
+        <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.0"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0"/>
         <PackageReference Include="Respawn" Version="5.0.1"/>
         <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57"/>
@@ -23,10 +24,6 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="Hooks"/>
     </ItemGroup>
 
     <ItemGroup>

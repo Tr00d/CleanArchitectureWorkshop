@@ -40,8 +40,8 @@ namespace CleanArchitectureWorkshop.Acceptance.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "AccountFeature", "User can deposit into Account\r\nUser can withdraw from an Account\r\nUser can retrie" +
-                    "ve a bank statement to the console", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "AccountFeature", "User can deposit into Account\nUser can withdraw from an Account\nUser can retrieve" +
+                    " statements", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -81,16 +81,16 @@ namespace CleanArchitectureWorkshop.Acceptance.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Prints all statements with balance from newest to oldest")]
+        [Xunit.SkippableFactAttribute(DisplayName="Retrieve all statements with balance from newest to oldest")]
         [Xunit.TraitAttribute("FeatureTitle", "AccountFeature")]
-        [Xunit.TraitAttribute("Description", "Prints all statements with balance from newest to oldest")]
+        [Xunit.TraitAttribute("Description", "Retrieve all statements with balance from newest to oldest")]
         [Xunit.TraitAttribute("Category", "Acceptance")]
-        public void PrintsAllStatementsWithBalanceFromNewestToOldest()
+        public void RetrieveAllStatementsWithBalanceFromNewestToOldest()
         {
             string[] tagsOfScenario = new string[] {
                     "Acceptance"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Prints all statements with balance from newest to oldest", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Retrieve all statements with balance from newest to oldest", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 7
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
