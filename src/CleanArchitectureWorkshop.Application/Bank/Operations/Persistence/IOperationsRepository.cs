@@ -1,6 +1,10 @@
-﻿namespace CleanArchitectureWorkshop.Application.Bank.Operations.Persistence;
+﻿using CleanArchitectureWorkshop.Domain.Bank.Operations;
+
+namespace CleanArchitectureWorkshop.Application.Bank.Operations.Persistence;
 
 public interface IOperationsRepository
 {
-    Task Deposit(double amount);
+    Task Deposit(double inAmount);
+    Task<Account> GetAccount();
+    Task SaveOperations(IEnumerable<Operation> inOperations);
 }

@@ -14,7 +14,10 @@ public class DepositHandler : IRequestHandler<DepositCommand>
 
     public async Task<Unit> Handle(DepositCommand request, CancellationToken cancellationToken)
     {
-        await this._repository.Deposit(request.Amount);
+        var theAccount = await _repository.GetAccount();
+        theAccount.Deposit(request.Amount, DateTime.Now);
+        await _repository.SaveOperations(theAccount.Operations);
+        
         return Unit.Value;
     }
 }

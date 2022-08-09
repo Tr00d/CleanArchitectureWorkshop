@@ -9,7 +9,7 @@ namespace CleanArchitectureWorkshop.Infrastructure.Tests.Bank.History;
 
 public class HistoryRepositoryTest : IDisposable
 {
-    private const string ConnectionString = "Server=localhost; Database=Workshop; User Id=sa; Password=Password@123";
+    private const string ConnectionString = "Server=localhost;Database=CAW;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True";
     private readonly BankContext context;
     private readonly HistoryRepository repository;
 

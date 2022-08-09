@@ -1,6 +1,8 @@
 ﻿using AutoFixture;
 using CleanArchitectureWorkshop.Application.Bank.Operations.Deposit;
 using CleanArchitectureWorkshop.Application.Bank.Operations.Persistence;
+using CleanArchitectureWorkshop.Domain.Bank.Operations;
+using FluentAssertions;
 using Moq;
 
 namespace CleanArchitectureWorkshop.Application.Tests.Bank.Operations.Deposit;
@@ -22,7 +24,12 @@ public class DepositHandlerTest
     public async Task Handle_ShouldDepositMoneyOnAccount()
     {
         var theCommand = this._fixture.Create<DepositCommand>();
+        var theAccount = new Account();
+        
         await this._handler.Handle(theCommand, CancellationToken.None);
-        this._mockRepository.Verify(repository => repository.Deposit(theCommand.Amount), Times.Once);
+        // this._mockRepository.Verify(repository => repository.SaveOperations(), Times.Once);
+
+        theAccount.Balance.Should().Be(theCommand.Amount);
+        theAccount.Operations.Should().BeEquivalentTo(new List<Operation> { new Operation(theCommand.Amount, DateTime.Now)});
     }
 }
