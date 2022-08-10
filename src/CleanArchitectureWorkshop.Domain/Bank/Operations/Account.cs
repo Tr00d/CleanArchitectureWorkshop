@@ -1,14 +1,36 @@
-﻿namespace CleanArchitectureWorkshop.Domain.Bank.Operations;
+﻿using CleanArchitectureWorkshop.Domain.Bank.Common;
+
+namespace CleanArchitectureWorkshop.Domain.Bank.Operations;
 
 public class Account
 {
-    public double Balance { get; set; }
-    public double LastDayWithdrawAmount { get; set; }
-    public ICollection<Operation> Operations { get; set; } = new List<Operation>();
+    private readonly ICollection<Operation> Operations;
 
-    public void Deposit(double inAmount, DateTime inDateTime)
+    public Account()
     {
-        Operations.Add(new Operation(inAmount, inDateTime));
-        Balance += inAmount;
+        this.Balance = default;
+        this.LastDayWithdrawnAmount = default;
+        this.Operations = new List<Operation>();
     }
+
+    public Account(double balance, double lastDayWithdrawnAmount)
+        : this()
+    {
+        this.Balance = balance;
+        this.LastDayWithdrawnAmount = lastDayWithdrawnAmount;
+    }
+
+    public double Balance { get; private set; }
+
+    public double LastDayWithdrawnAmount { get; }
+
+    public void Deposit(double amount, DateTime date)
+    {
+        this.Operations.Add(new Operation(date, amount));
+        this.IncrementBalance(amount);
+    }
+
+    private void IncrementBalance(double inAmount) => this.Balance += inAmount;
+
+    public IEnumerable<Operation> GetOperations() => new List<Operation>(this.Operations);
 }

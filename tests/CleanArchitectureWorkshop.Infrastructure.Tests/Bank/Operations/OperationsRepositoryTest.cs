@@ -1,42 +1,78 @@
 ﻿using AutoFixture;
-using CleanArchitectureWorkshop.Infrastructure.Bank;
+using CleanArchitectureWorkshop.Application.Common;
+using CleanArchitectureWorkshop.Domain.Bank.Common;
 using CleanArchitectureWorkshop.Infrastructure.Bank.Entities;
 using CleanArchitectureWorkshop.Infrastructure.Bank.Operations;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 
 namespace CleanArchitectureWorkshop.Infrastructure.Tests.Bank.Operations;
 
+[Collection("Sequential")]
 public class OperationsRepositoryTest : IDisposable
 {
-    private const string ConnectionString = "Server=localhost;Database=CAW;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True";
-    private readonly BankContext _context;
-    private readonly OperationsRepository _repository;
-    private readonly Fixture _fixture;
-    
+    private readonly BankDataBuilder dataBuilder;
+    private readonly Fixture fixture;
+    private readonly Mock<ITimeProvider> mockTimeProvider;
+    private readonly OperationsRepository repository;
+
     public OperationsRepositoryTest()
     {
-        _context = CreateContext();
-        _repository = new OperationsRepository(_context);
+        this.fixture = new Fixture();
+        this.dataBuilder = BankDataBuilder.Build();
+        this.mockTimeProvider = new Mock<ITimeProvider>();
+        this.repository = new OperationsRepository(this.dataBuilder.Context, this.mockTimeProvider.Object);
     }
 
     public void Dispose()
     {
-        _context.Database.EnsureDeleted();
+        this.dataBuilder.Context.Database.EnsureDeleted();
     }
 
     [Fact]
     [Trait("Category", "Integration")]
-    public async Task Deposit_ShouldAddTransaction()
+    public async Task SaveOperationsAsync_ShouldInsertOperationsToAccount()
     {
+        var operations = this.fixture.CreateMany<Operation>().ToList();
+        await this.repository.SaveOperationsAsync(operations);
+        var transactions = await this.dataBuilder.Context.Transactions.AsNoTracking().ToListAsync();
+        transactions.Select(transaction => transaction.ToOperation()).Should().BeEquivalentTo(operations);
     }
 
-    private static BankContext CreateContext()
+    [Fact]
+    [Trait("Category", "Integration")]
+    public async Task GetAccountAsync_ShouldReturnAccountWithBalance()
     {
-        var options = new DbContextOptionsBuilder<BankContext>()
-            .UseSqlServer(ConnectionString)
-            .Options;
-        var bankContext = new BankContext(options);
-        bankContext.Database.EnsureCreated();
-        return bankContext;
+        await this.dataBuilder
+            .WithEntity(Transaction.Deposit(this.fixture.Create<DateTime>(), 500))
+            .WithEntity(Transaction.Deposit(this.fixture.Create<DateTime>(), 100))
+            .WithEntity(Transaction.Withdrawal(this.fixture.Create<DateTime>(), 200))
+            .CommitAsync();
+        var expectedBalance = 400;
+        this.mockTimeProvider.Setup(provider => provider.UtcNow).Returns(this.fixture.Create<DateTime>());
+        var account = await this.repository.GetAccountAsync();
+        account.Balance.Should().Be(expectedBalance);
+    }
+
+    [Fact]
+    [Trait("Category", "Integration")]
+    public async Task GetAccountAsync_ShouldReturnAccountWithWithdrawnAmount()
+    {
+        var time = new DateTime(2022, 10, 10, 5, 0, 0);
+        await this.dataBuilder
+            .WithEntity(Transaction.Withdrawal(time.AddDays(-1), 500))
+            .WithEntity(Transaction.Withdrawal(time.AddHours(-2), 100))
+            .WithEntity(Transaction.Withdrawal(time.AddHours(-4), 200))
+            .WithEntity(Transaction.Withdrawal(time.AddDays(-2), 400))
+            .WithEntity(Transaction.Deposit(time, 500))
+            .WithEntity(Transaction.Deposit(time.AddHours(2), 100))
+            .WithEntity(Transaction.Deposit(time.AddHours(4), 200))
+            .WithEntity(Transaction.Deposit(time.AddHours(-4), 400))
+            .CommitAsync();
+        var expectedAmount = 800;
+        this.mockTimeProvider.Setup(provider => provider.UtcNow).Returns(time);
+        var account = await this.repository.GetAccountAsync();
+        account.LastDayWithdrawnAmount.Should().Be(expectedAmount);
     }
 }

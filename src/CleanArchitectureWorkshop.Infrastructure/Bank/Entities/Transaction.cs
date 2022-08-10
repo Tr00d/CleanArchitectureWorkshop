@@ -1,4 +1,4 @@
-﻿using CleanArchitectureWorkshop.Domain.Bank.History;
+﻿using CleanArchitectureWorkshop.Domain.Bank.Common;
 
 namespace CleanArchitectureWorkshop.Infrastructure.Bank.Entities;
 
@@ -38,6 +38,12 @@ public class Transaction
         new(processedAt, amount, TransactionType.Withdrawal);
 
     public Operation ToOperation() => new(this.ProcessedAt, this.CalculateAmount());
+
+    public static Transaction FromOperation(Operation operation) =>
+        new(operation.Date, Math.Abs(operation.Amount), GetType(operation.Amount));
+
+    private static TransactionType GetType(double amount) =>
+        amount >= 0 ? TransactionType.Deposit : TransactionType.Withdrawal;
 
     private double CalculateAmount() =>
         this.Type switch

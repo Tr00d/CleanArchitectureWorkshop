@@ -1,6 +1,8 @@
 ﻿using AutoFixture;
 using CleanArchitectureWorkshop.Application.Bank.Operations.Deposit;
 using CleanArchitectureWorkshop.Application.Bank.Operations.Persistence;
+using CleanArchitectureWorkshop.Application.Common;
+using CleanArchitectureWorkshop.Domain.Bank.Common;
 using CleanArchitectureWorkshop.Domain.Bank.Operations;
 using FluentAssertions;
 using Moq;
@@ -9,27 +11,53 @@ namespace CleanArchitectureWorkshop.Application.Tests.Bank.Operations.Deposit;
 
 public class DepositHandlerTest
 {
-    private readonly Fixture _fixture;
-    private readonly DepositHandler _handler;
-    private readonly Mock<IOperationsRepository> _mockRepository;
+    private readonly Fixture fixture;
+    private readonly DepositHandler handler;
+    private readonly Mock<IOperationsRepository> mockRepository;
+    private readonly Mock<ITimeProvider> mockTimeProvider;
 
     public DepositHandlerTest()
     {
-        _fixture = new Fixture();
-        _mockRepository = new Mock<IOperationsRepository>();
-        _handler = new DepositHandler(_mockRepository.Object);
+        this.fixture = new Fixture();
+        this.mockRepository = new Mock<IOperationsRepository>();
+        this.mockTimeProvider = new Mock<ITimeProvider>();
+        this.handler = new DepositHandler(this.mockRepository.Object, this.mockTimeProvider.Object);
     }
 
     [Fact]
-    public async Task Handle_ShouldDepositMoneyOnAccount()
+    public async Task Handle_ShouldUpdateAccountBalance_GivenDepositSucceeds()
     {
-        var theCommand = this._fixture.Create<DepositCommand>();
-        var theAccount = new Account();
-        
-        await this._handler.Handle(theCommand, CancellationToken.None);
-        // this._mockRepository.Verify(repository => repository.SaveOperations(), Times.Once);
+        var command = this.fixture.Create<DepositCommand>();
+        var account = new Account();
+        var time = this.fixture.Create<DateTime>();
+        this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
+        this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
+        await this.handler.Handle(command, CancellationToken.None);
+        account.Balance.Should().Be(command.Amount);
+    }
 
-        theAccount.Balance.Should().Be(theCommand.Amount);
-        theAccount.Operations.Should().BeEquivalentTo(new List<Operation> { new Operation(theCommand.Amount, DateTime.Now)});
+    [Fact]
+    public async Task Handle_ShouldAddDepositOperation_GivenDepositSucceeds()
+    {
+        var command = this.fixture.Create<DepositCommand>();
+        var account = new Account();
+        var time = this.fixture.Create<DateTime>();
+        var expectedOperations = new List<Operation> { new(time, command.Amount) };
+        this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
+        this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
+        await this.handler.Handle(command, CancellationToken.None);
+        account.GetOperations().Should().BeEquivalentTo(expectedOperations);
+    }
+
+    [Fact]
+    public async Task Handle_ShouldUpdateOperations_GivenDepositSucceeds()
+    {
+        var command = this.fixture.Create<DepositCommand>();
+        var account = new Account();
+        var time = this.fixture.Create<DateTime>();
+        this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
+        this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
+        await this.handler.Handle(command, CancellationToken.None);
+        this.mockRepository.Verify(repository => repository.SaveOperationsAsync(account.GetOperations()), Times.Once);
     }
 }

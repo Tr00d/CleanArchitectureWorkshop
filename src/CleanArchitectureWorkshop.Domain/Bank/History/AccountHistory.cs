@@ -1,4 +1,6 @@
-﻿namespace CleanArchitectureWorkshop.Domain.Bank.History;
+﻿using CleanArchitectureWorkshop.Domain.Bank.Common;
+
+namespace CleanArchitectureWorkshop.Domain.Bank.History;
 
 public class AccountHistory
 {

@@ -1,4 +1,5 @@
-﻿using CleanArchitectureWorkshop.Domain.Bank.History;
+﻿using CleanArchitectureWorkshop.Domain.Bank.Common;
+using CleanArchitectureWorkshop.Domain.Bank.History;
 
 namespace CleanArchitectureWorkshop.Application.Tests.Bank;
 

@@ -8,6 +8,8 @@ public sealed class ApplicationContext : IDisposable
     public ApplicationContext()
     {
         FakeWebApplicationFactory<Program> applicationFactory = new FakeWebApplicationFactory<Program>();
+
+        //applicationFactory.Services.
         this.ServiceProvider = applicationFactory.Services.CreateScope().ServiceProvider;
         this.HttpClient = applicationFactory.CreateClient();
     }

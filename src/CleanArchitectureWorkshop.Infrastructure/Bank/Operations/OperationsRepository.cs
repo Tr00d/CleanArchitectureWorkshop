@@ -1,32 +1,51 @@
 ﻿using CleanArchitectureWorkshop.Application.Bank.Operations.Persistence;
+using CleanArchitectureWorkshop.Application.Common;
+using CleanArchitectureWorkshop.Domain.Bank.Common;
 using CleanArchitectureWorkshop.Domain.Bank.Operations;
 using CleanArchitectureWorkshop.Infrastructure.Bank.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitectureWorkshop.Infrastructure.Bank.Operations;
 
 public class OperationsRepository : IOperationsRepository
 {
-    private readonly BankContext _context;
+    private readonly BankContext context;
+    private readonly ITimeProvider timeProvider;
 
-    public OperationsRepository(BankContext inContext)
+    public OperationsRepository(BankContext context, ITimeProvider timeProvider)
     {
-        _context = inContext;
+        this.context = context;
+        this.timeProvider = timeProvider;
     }
 
-    public async Task Deposit(double inAmount)
+    public async Task<Account> GetAccountAsync()
     {
-        var theTransaction = Transaction.Deposit(DateTime.Now, inAmount);
-        await _context.Transactions.AddAsync(theTransaction);
-        await _context.SaveChangesAsync();
+        var balance = await this.GetBalanceAsync();
+        var time = this.timeProvider.UtcNow.AddDays(-1);
+        var withdrawnAmount = await this.GetWithdrawnAmountAsync(time);
+        return new Account(balance, withdrawnAmount);
     }
 
-    public Task<Account> GetAccount()
+    public async Task SaveOperationsAsync(IEnumerable<Operation> inOperations)
     {
-        throw new NotImplementedException();
+        await this.context.Transactions.AddRangeAsync(inOperations.Select(Transaction.FromOperation));
+        await this.context.SaveChangesAsync();
     }
 
-    public Task SaveOperations(IEnumerable<Operation> inOperations)
-    {
-        throw new NotImplementedException();
-    }
+    private async Task<double> GetWithdrawnAmountAsync(DateTime time) =>
+        await this.context
+            .Transactions
+            .AsNoTracking()
+            .Where(transaction => transaction.ProcessedAt >= time &&
+                                  transaction.Type == Transaction.TransactionType.Withdrawal)
+            .SumAsync(transaction => transaction.Amount);
+
+    private async Task<double> GetBalanceAsync() =>
+        await this.context
+            .Transactions
+            .AsNoTracking()
+            .Select(transaction => transaction.Type == Transaction.TransactionType.Deposit
+                ? transaction.Amount
+                : -transaction.Amount)
+            .SumAsync();
 }

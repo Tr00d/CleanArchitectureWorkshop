@@ -19,3 +19,11 @@ User can retrieve statements
     Scenario: Prints all statements while no operations where made on my account
         When I retrieve the account statements
         Then I should see no statements
+
+    @Acceptance
+    Scenario: Deposit money
+        Given I make a deposit of 1000 on '10 January 2021'
+        When I retrieve the account statements
+        Then I should see these statements:
+          | Date            | Amount | Balance |
+          | 10 January 2021 | 1000   | 1000    |

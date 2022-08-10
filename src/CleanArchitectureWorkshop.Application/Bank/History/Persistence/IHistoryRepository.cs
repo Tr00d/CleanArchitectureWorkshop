@@ -4,5 +4,5 @@ namespace CleanArchitectureWorkshop.Application.Bank.History.Persistence;
 
 public interface IHistoryRepository
 {
-    Task<AccountHistory> GetAccountHistory();
+    Task<AccountHistory> GetAccountHistoryAsync();
 }

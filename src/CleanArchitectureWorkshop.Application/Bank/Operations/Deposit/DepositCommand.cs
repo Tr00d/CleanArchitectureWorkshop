@@ -2,5 +2,5 @@
 
 namespace CleanArchitectureWorkshop.Application.Bank.Operations.Deposit
 {
-    public record DepositCommand(double Amount) : IRequest;
+    public record DepositCommand(Guid Id, double Amount) : IRequest;
 }
