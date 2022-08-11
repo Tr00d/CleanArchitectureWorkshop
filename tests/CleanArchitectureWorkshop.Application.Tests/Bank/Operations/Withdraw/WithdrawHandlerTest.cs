@@ -1,50 +1,51 @@
-﻿using AutoFixture;
-using CleanArchitectureWorkshop.Application.Bank.Operations.Deposit;
+using AutoFixture;
 using CleanArchitectureWorkshop.Application.Bank.Operations.Persistence;
+using CleanArchitectureWorkshop.Application.Bank.Operations.Withdraw;
 using CleanArchitectureWorkshop.Application.Common;
 using CleanArchitectureWorkshop.Domain.Bank.Common;
 using CleanArchitectureWorkshop.Domain.Bank.Operations;
 using FluentAssertions;
 using Moq;
 
-namespace CleanArchitectureWorkshop.Application.Tests.Bank.Operations.Deposit;
+namespace CleanArchitectureWorkshop.Application.Tests.Bank.Operations.Withdraw;
 
-public class DepositHandlerTest
+public class WithdrawHandlerTest
 {
     private readonly Fixture fixture;
-    private readonly DepositHandler handler;
+    private readonly WithdrawHandler handler;
     private readonly Mock<IOperationsRepository> mockRepository;
     private readonly Mock<ITimeProvider> mockTimeProvider;
 
-    public DepositHandlerTest()
+    public WithdrawHandlerTest()
     {
         this.fixture = new Fixture();
         this.mockRepository = new Mock<IOperationsRepository>();
         this.mockTimeProvider = new Mock<ITimeProvider>();
-        this.handler = new DepositHandler(this.mockRepository.Object, this.mockTimeProvider.Object);
+        this.handler = new WithdrawHandler(this.mockRepository.Object, this.mockTimeProvider.Object);
     }
 
     [Fact]
     [Trait("Category", "Unit")]
-    public async Task Handle_ShouldUpdateAccountBalance_GivenDepositSucceeds()
+    public async Task Handle_ShouldUpdateAccountBalance_GivenWithdrawalSucceeds()
     {
-        var command = this.fixture.Create<DepositCommand>();
-        var account = new Account();
+        var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, 100).Create();
+        var account = new Account(500, 0);
+        var expectedBalance = 400;
         var time = this.fixture.Create<DateTime>();
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
         this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
         await this.handler.Handle(command, CancellationToken.None);
-        account.Balance.Should().Be(command.Amount);
+        account.Balance.Should().Be(expectedBalance);
     }
 
     [Fact]
     [Trait("Category", "Unit")]
-    public async Task Handle_ShouldAddDepositOperation_GivenDepositSucceeds()
+    public async Task Handle_ShouldAddWithdrawalOperation_GivenDepositSucceeds()
     {
-        var command = this.fixture.Create<DepositCommand>();
-        var account = new Account();
+        var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, 100).Create();
+        var account = new Account(500, 0);
         var time = this.fixture.Create<DateTime>();
-        var expectedOperations = new List<Operation> { new(time, command.Amount) };
+        var expectedOperations = new List<Operation> { new(time, -command.Amount) };
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
         this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
         await this.handler.Handle(command, CancellationToken.None);
@@ -55,8 +56,8 @@ public class DepositHandlerTest
     [Trait("Category", "Unit")]
     public async Task Handle_ShouldUpdateOperations()
     {
-        var command = this.fixture.Create<DepositCommand>();
-        var account = new Account();
+        var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, 100).Create();
+        var account = new Account(500, 0);
         var time = this.fixture.Create<DateTime>();
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
         this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
@@ -70,8 +71,8 @@ public class DepositHandlerTest
     [Trait("Category", "Unit")]
     public async Task Handle_ShouldNotUpdateAccountBalance_GivenAmountIsNotPositive(int amount)
     {
-        var command = this.fixture.Build<DepositCommand>().With(command => command.Amount, amount).Create();
-        var account = new Account();
+        var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, amount).Create();
+        var account = new Account(500, 0);
         var initialBalance = account.Balance;
         var time = this.fixture.Create<DateTime>();
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
@@ -86,8 +87,8 @@ public class DepositHandlerTest
     [Trait("Category", "Unit")]
     public async Task Handle_ShouldNotAddOperation_GivenAmountIsNotPositive(int amount)
     {
-        var command = this.fixture.Build<DepositCommand>().With(command => command.Amount, amount).Create();
-        var account = new Account();
+        var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, amount).Create();
+        var account = new Account(500, 0);
         var time = this.fixture.Create<DateTime>();
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
         this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);

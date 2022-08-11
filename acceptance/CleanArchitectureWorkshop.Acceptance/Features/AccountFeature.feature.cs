@@ -166,16 +166,16 @@ namespace CleanArchitectureWorkshop.Acceptance.Features
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Deposit money")]
+        [Xunit.SkippableFactAttribute(DisplayName="Deposit should add statement when amount is positive")]
         [Xunit.TraitAttribute("FeatureTitle", "AccountFeature")]
-        [Xunit.TraitAttribute("Description", "Deposit money")]
+        [Xunit.TraitAttribute("Description", "Deposit should add statement when amount is positive")]
         [Xunit.TraitAttribute("Category", "Acceptance")]
-        public void DepositMoney()
+        public void DepositShouldAddStatementWhenAmountIsPositive()
         {
             string[] tagsOfScenario = new string[] {
                     "Acceptance"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deposit money", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deposit should add statement when amount is positive", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 24
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -202,6 +202,89 @@ namespace CleanArchitectureWorkshop.Acceptance.Features
                             "1000"});
 #line 27
         testRunner.Then("I should see these statements:", ((string)(null)), table2, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Deposit should not add statement when amount not positive")]
+        [Xunit.TraitAttribute("FeatureTitle", "AccountFeature")]
+        [Xunit.TraitAttribute("Description", "Deposit should not add statement when amount not positive")]
+        [Xunit.TraitAttribute("Category", "Acceptance")]
+        public void DepositShouldNotAddStatementWhenAmountNotPositive()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "Acceptance"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deposit should not add statement when amount not positive", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 32
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 33
+        testRunner.Given("I make a deposit of -500 on \'10 January 2021\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 34
+        testRunner.And("I make a deposit of 0 on \'15 January 2021\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 35
+        testRunner.When("I retrieve the account statements", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 36
+        testRunner.Then("I should see no statements", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Withdrawal should not add statement when amount not positive")]
+        [Xunit.TraitAttribute("FeatureTitle", "AccountFeature")]
+        [Xunit.TraitAttribute("Description", "Withdrawal should not add statement when amount not positive")]
+        [Xunit.TraitAttribute("Category", "Acceptance")]
+        public void WithdrawalShouldNotAddStatementWhenAmountNotPositive()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "Acceptance"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Withdrawal should not add statement when amount not positive", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 39
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 40
+        testRunner.Given("I make a deposit of 1000 on \'10 January 2021\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 41
+        testRunner.And("I make a withdrawal of 0 on \'15 January 2021\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 42
+        testRunner.And("I make a withdrawal of -500 on \'20 January 2021\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 43
+        testRunner.When("I retrieve the account statements", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Date",
+                            "Amount",
+                            "Balance"});
+                table3.AddRow(new string[] {
+                            "10 January 2021",
+                            "1000",
+                            "1000"});
+#line 44
+        testRunner.Then("I should see these statements:", ((string)(null)), table3, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

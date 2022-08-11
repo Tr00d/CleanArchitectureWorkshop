@@ -26,11 +26,35 @@ public class Account
 
     public void Deposit(double amount, DateTime date)
     {
-        this.Operations.Add(new Operation(date, amount));
-        this.IncrementBalance(amount);
+        if (!IsAmountValid(amount))
+        {
+            return;
+        }
+
+        this.Operations.Add(CreateDeposit(amount, date));
+        this.IncreaseBalance(amount);
     }
 
-    private void IncrementBalance(double inAmount) => this.Balance += inAmount;
+    private static Operation CreateDeposit(double amount, DateTime date) => new(date, amount);
+
+    private static bool IsAmountValid(double amount) => amount > 0;
+
+    private void IncreaseBalance(double amount) => this.Balance += amount;
 
     public IEnumerable<Operation> GetOperations() => new List<Operation>(this.Operations);
+
+    public void Withdraw(double amount, DateTime date)
+    {
+        if (!IsAmountValid(amount))
+        {
+            return;
+        }
+
+        this.Operations.Add(CreateWithdrawal(amount, date));
+        this.DecreaseBalance(amount);
+    }
+
+    private static Operation CreateWithdrawal(double amount, DateTime date) => new(date, -amount);
+
+    private void DecreaseBalance(double amount) => this.Balance -= amount;
 }

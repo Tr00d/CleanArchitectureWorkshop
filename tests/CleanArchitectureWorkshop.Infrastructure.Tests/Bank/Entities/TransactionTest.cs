@@ -16,6 +16,7 @@ public class TransactionTest
     }
 
     [Fact]
+    [Trait("Category", "Unit")]
     public void ToOperation_ShouldReturnPositiveAmount_GivenTransactionIsDeposit()
     {
         var transaction = this.CreateTransaction(TransactionType.Deposit);
@@ -25,6 +26,7 @@ public class TransactionTest
     }
 
     [Fact]
+    [Trait("Category", "Unit")]
     public void ToOperation_ShouldReturnNegativeAmount_GivenTransactionIsWithdrawal()
     {
         var transaction = this.CreateTransaction(TransactionType.Withdrawal);
@@ -34,6 +36,7 @@ public class TransactionTest
     }
 
     [Fact]
+    [Trait("Category", "Unit")]
     public void FromOperation_ShouldReturnDeposit_GivenOperationHasPositiveAmount()
     {
         var operation = new Operation(DateTime.Now, 10);
@@ -44,6 +47,7 @@ public class TransactionTest
     }
 
     [Fact]
+    [Trait("Category", "Unit")]
     public void FromOperation_ShouldReturnWithdrawal_GivenOperationHasNegativeAmount()
     {
         var operation = new Operation(DateTime.Now, -10);

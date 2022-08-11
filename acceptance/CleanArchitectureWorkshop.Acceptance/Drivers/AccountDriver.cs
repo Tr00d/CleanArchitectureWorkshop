@@ -2,6 +2,7 @@
 using CleanArchitectureWorkshop.Acceptance.Support;
 using CleanArchitectureWorkshop.Application.Bank.History.GetStatements;
 using CleanArchitectureWorkshop.Application.Bank.Operations.Deposit;
+using CleanArchitectureWorkshop.Application.Bank.Operations.Withdraw;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
@@ -24,14 +25,13 @@ public class AccountDriver
     public async Task DepositAsync(double amount, DateTime date)
     {
         this.UpdateTimeProvider(date);
-        await this.client.ProcessRequest(HttpMethod.Post, $"{OperationsUri}/deposit", new DepositRequest(amount))
-            .ConfigureAwait(false);
+        await this.client.ProcessRequest(HttpMethod.Post, $"{OperationsUri}/deposit", new DepositRequest(amount));
     }
 
     public async Task WithdrawAsync(double amount, DateTime date)
     {
         this.UpdateTimeProvider(date);
-        await this.client.ProcessRequest(HttpMethod.Post, $"{OperationsUri}/withdraw").ConfigureAwait(false);
+        await this.client.ProcessRequest(HttpMethod.Post, $"{OperationsUri}/withdraw", new WithdrawRequest(amount));
     }
 
     private void UpdateTimeProvider(DateTime date)
@@ -41,7 +41,7 @@ public class AccountDriver
     }
 
     public async Task RetrieveStatementsAsync() =>
-        await this.client.ProcessRequest(HttpMethod.Get, $"{HistoryUri}/statements").ConfigureAwait(false);
+        await this.client.ProcessRequest(HttpMethod.Get, $"{HistoryUri}/statements");
 
     public async Task<GetStatementsResponse> GetRetrievedStatementsAsync()
     {

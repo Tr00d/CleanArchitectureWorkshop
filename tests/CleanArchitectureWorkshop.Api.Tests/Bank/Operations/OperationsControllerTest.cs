@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using AutoFixture;
 using AutoMapper;
 using CleanArchitectureWorkshop.Api.Bank.Operations;
 using CleanArchitectureWorkshop.Application.Bank.Operations.Deposit;
+using CleanArchitectureWorkshop.Application.Bank.Operations.Withdraw;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +29,7 @@ public class OperationsControllerTest
     }
 
     [Fact]
+    [Trait("Category", "Unit")]
     public async Task Deposit_ShouldReturnOperationIdentifier_GivenDepositSucceeds()
     {
         var request = this.fixture.Create<DepositRequest>();
@@ -34,5 +37,38 @@ public class OperationsControllerTest
         this.mockMapper.Setup(mapper => mapper.Map<DepositCommand>(request)).Returns(command);
         var result = await this.controller.DepositAsync(request);
         result.Should().BeOfType<OkObjectResult>().Which.Value.Should().Be(command.Id);
+    }
+
+    [Fact]
+    [Trait("Category", "Unit")]
+    public async Task Deposit_ShouldProcessDeposit()
+    {
+        var request = this.fixture.Create<DepositRequest>();
+        var command = this.fixture.Create<DepositCommand>();
+        this.mockMapper.Setup(mapper => mapper.Map<DepositCommand>(request)).Returns(command);
+        await this.controller.DepositAsync(request);
+        this.mockMediator.Verify(mediator => mediator.Send(command, It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Fact]
+    [Trait("Category", "Unit")]
+    public async Task Withdraw_ShouldReturnOperationIdentifier_GivenWithdrawalSucceeds()
+    {
+        var request = this.fixture.Create<WithdrawRequest>();
+        var command = this.fixture.Create<WithdrawCommand>();
+        this.mockMapper.Setup(mapper => mapper.Map<WithdrawCommand>(request)).Returns(command);
+        var result = await this.controller.WithdrawAsync(request);
+        result.Should().BeOfType<OkObjectResult>().Which.Value.Should().Be(command.Id);
+    }
+
+    [Fact]
+    [Trait("Category", "Unit")]
+    public async Task Withdraw_ShouldProcessWithdrawal()
+    {
+        var request = this.fixture.Create<WithdrawRequest>();
+        var command = this.fixture.Create<WithdrawCommand>();
+        this.mockMapper.Setup(mapper => mapper.Map<WithdrawCommand>(request)).Returns(command);
+        await this.controller.WithdrawAsync(request);
+        this.mockMediator.Verify(mediator => mediator.Send(command, It.IsAny<CancellationToken>()), Times.Once);
     }
 }

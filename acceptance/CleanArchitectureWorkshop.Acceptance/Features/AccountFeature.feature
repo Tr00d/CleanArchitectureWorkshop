@@ -21,8 +21,25 @@ User can retrieve statements
         Then I should see no statements
 
     @Acceptance
-    Scenario: Deposit money
+    Scenario: Deposit should add statement when amount is positive
         Given I make a deposit of 1000 on '10 January 2021'
+        When I retrieve the account statements
+        Then I should see these statements:
+          | Date            | Amount | Balance |
+          | 10 January 2021 | 1000   | 1000    |
+
+    @Acceptance
+    Scenario: Deposit should not add statement when amount not positive
+        Given I make a deposit of -500 on '10 January 2021'
+        And I make a deposit of 0 on '15 January 2021'
+        When I retrieve the account statements
+        Then I should see no statements
+
+    @Acceptance
+    Scenario: Withdrawal should not add statement when amount not positive
+        Given I make a deposit of 1000 on '10 January 2021'
+        And I make a withdrawal of 0 on '15 January 2021'
+        And I make a withdrawal of -500 on '20 January 2021'
         When I retrieve the account statements
         Then I should see these statements:
           | Date            | Amount | Balance |

@@ -1,5 +1,6 @@
 using AutoMapper;
 using CleanArchitectureWorkshop.Application.Bank.Operations.Deposit;
+using CleanArchitectureWorkshop.Application.Bank.Operations.Withdraw;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,9 +20,11 @@ namespace CleanArchitectureWorkshop.Api.Bank.Operations
         }
 
         [HttpPost("withdraw")]
-        public Task<IActionResult> WithdrawAsync()
+        public async Task<IActionResult> WithdrawAsync([FromBody] WithdrawRequest request)
         {
-            throw new NotImplementedException();
+            var command = this.mapper.Map<WithdrawCommand>(request);
+            await this.mediator.Send(command);
+            return this.Ok(command.Id);
         }
 
         [HttpPost("deposit")]

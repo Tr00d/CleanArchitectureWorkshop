@@ -27,19 +27,13 @@ public class FakeHttpClient
         return await this.HttpResponse.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
     }
 
-    public async Task ProcessRequest(HttpMethod method, string relativeUri)
-    {
+    public async Task ProcessRequest(HttpMethod method, string relativeUri) =>
         this.HttpResponse =
             this.HttpResponse = await this.ProcessRequest(await this.CreateRequestAsync(method, relativeUri));
-        this.HttpResponse.EnsureSuccessStatusCode();
-    }
 
-    public async Task ProcessRequest<TRequest>(HttpMethod method, string relativeUri, TRequest data)
-    {
+    public async Task ProcessRequest<TRequest>(HttpMethod method, string relativeUri, TRequest data) =>
         this.HttpResponse = await this
             .ProcessRequest(await this.CreateRequestAsync(method, relativeUri, data));
-        this.HttpResponse.EnsureSuccessStatusCode();
-    }
 
     private async Task<HttpRequestMessage> CreateRequestAsync<T>(HttpMethod method, string relativeUri, T data)
     {
