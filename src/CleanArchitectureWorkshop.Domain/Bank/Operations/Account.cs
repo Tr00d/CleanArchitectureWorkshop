@@ -4,13 +4,13 @@ namespace CleanArchitectureWorkshop.Domain.Bank.Operations;
 
 public class Account
 {
-    private readonly ICollection<Operation> Operations;
+    private readonly ICollection<Operation> operations;
 
     public Account()
     {
         this.Balance = default;
         this.LastDayWithdrawnAmount = default;
-        this.Operations = new List<Operation>();
+        this.operations = new List<Operation>();
     }
 
     public Account(double balance, double lastDayWithdrawnAmount)
@@ -31,7 +31,7 @@ public class Account
             return;
         }
 
-        this.Operations.Add(CreateDeposit(amount, date));
+        this.operations.Add(CreateDeposit(amount, date));
         this.IncreaseBalance(amount);
     }
 
@@ -41,7 +41,7 @@ public class Account
 
     private void IncreaseBalance(double amount) => this.Balance += amount;
 
-    public IEnumerable<Operation> GetOperations() => new List<Operation>(this.Operations);
+    public IEnumerable<Operation> GetOperations() => new List<Operation>(this.operations);
 
     public void Withdraw(double amount, DateTime date)
     {
@@ -50,7 +50,7 @@ public class Account
             return;
         }
 
-        this.Operations.Add(CreateWithdrawal(amount, date));
+        this.operations.Add(CreateWithdrawal(amount, date));
         this.DecreaseBalance(amount);
     }
 
