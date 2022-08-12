@@ -34,7 +34,7 @@ public class DepositHandlerTest
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
         this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
         await this.handler.Handle(command, CancellationToken.None);
-        account.Balance.Should().Be(command.Amount);
+        account.Balance.Should().Be(command.Amount.Value);
     }
 
     [Fact]
@@ -44,7 +44,7 @@ public class DepositHandlerTest
         var command = this.fixture.Create<DepositCommand>();
         var account = new Account();
         var time = this.fixture.Create<DateTime>();
-        var expectedOperations = new List<Operation> { new(time, command.Amount) };
+        var expectedOperations = new List<Operation> { Operation.FromValues(time, command.Amount.Value) };
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
         this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
         await this.handler.Handle(command, CancellationToken.None);
@@ -70,7 +70,8 @@ public class DepositHandlerTest
     [Trait("Category", "Unit")]
     public async Task Handle_ShouldNotUpdateAccountBalance_GivenAmountIsNotPositive(int amount)
     {
-        var command = this.fixture.Build<DepositCommand>().With(command => command.Amount, amount).Create();
+        var command = this.fixture.Build<DepositCommand>().With(command => command.Amount, Amount.FromValue(amount))
+            .Create();
         var account = new Account();
         var initialBalance = account.Balance;
         var time = this.fixture.Create<DateTime>();
@@ -86,7 +87,8 @@ public class DepositHandlerTest
     [Trait("Category", "Unit")]
     public async Task Handle_ShouldNotAddOperation_GivenAmountIsNotPositive(int amount)
     {
-        var command = this.fixture.Build<DepositCommand>().With(command => command.Amount, amount).Create();
+        var command = this.fixture.Build<DepositCommand>().With(command => command.Amount, Amount.FromValue(amount))
+            .Create();
         var account = new Account();
         var time = this.fixture.Create<DateTime>();
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);

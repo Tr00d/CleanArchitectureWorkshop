@@ -38,9 +38,9 @@ public class GetStatementsHandlerTest
     {
         var statements = new List<Operation>
         {
-            new(new DateTime(2021, 01, 15), 2000),
-            new(new DateTime(2021, 01, 20), -500),
-            new(new DateTime(2021, 01, 10), 1000),
+            Operation.FromValues(new DateTime(2021, 01, 15), 2000),
+            Operation.FromValues(new DateTime(2021, 01, 20), -500),
+            Operation.FromValues(new DateTime(2021, 01, 10), 1000),
         };
         var account = AccountBuilder.Build().WithStatements(statements).Create();
         var expectedStatements = new List<StatementModel>

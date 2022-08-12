@@ -3,9 +3,13 @@ using CleanArchitectureWorkshop.Infrastructure;
 using CleanArchitectureWorkshop.Infrastructure.Bank;
 using FluentValidation.AspNetCore;
 using MediatR;
+using ServicesRegistration = CleanArchitectureWorkshop.Application.ServicesRegistration;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddFluentValidation(configuration =>
+{
+    configuration.RegisterValidatorsFromAssembly(typeof(ServicesRegistration).Assembly);
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);

@@ -37,7 +37,7 @@ public class Transaction
     public static Transaction Withdrawal(DateTime processedAt, double amount) =>
         new(processedAt, amount, TransactionType.Withdrawal);
 
-    public Operation ToOperation() => new(this.ProcessedAt, this.CalculateAmount());
+    public Operation ToOperation() => Operation.FromValues(this.ProcessedAt, this.CalculateAmount());
 
     public static Transaction FromOperation(Operation operation) =>
         new(operation.Date, Math.Abs(operation.Amount), GetType(operation.Amount));

@@ -39,8 +39,9 @@ public class TransactionTest
     [Trait("Category", "Unit")]
     public void FromOperation_ShouldReturnDeposit_GivenOperationHasPositiveAmount()
     {
-        var operation = new Operation(DateTime.Now, 10);
+        var operation = Operation.FromValues(DateTime.Now, 10);
         var transaction = FromOperation(operation);
+        transaction.Id.Should().NotBeEmpty();
         transaction.Amount.Should().Be(operation.Amount);
         transaction.Type.Should().Be(TransactionType.Deposit);
         transaction.ProcessedAt.Should().Be(operation.Date);
@@ -50,8 +51,9 @@ public class TransactionTest
     [Trait("Category", "Unit")]
     public void FromOperation_ShouldReturnWithdrawal_GivenOperationHasNegativeAmount()
     {
-        var operation = new Operation(DateTime.Now, -10);
+        var operation = Operation.FromValues(DateTime.Now, -10);
         var transaction = FromOperation(operation);
+        transaction.Id.Should().NotBeEmpty();
         transaction.Amount.Should().Be(Math.Abs(operation.Amount));
         transaction.Type.Should().Be(TransactionType.Withdrawal);
         transaction.ProcessedAt.Should().Be(operation.Date);

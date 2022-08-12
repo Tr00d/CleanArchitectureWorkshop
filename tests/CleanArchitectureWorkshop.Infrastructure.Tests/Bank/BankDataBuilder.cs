@@ -19,13 +19,6 @@ public class BankDataBuilder
 
     public static BankDataBuilder Build() => new(CreateContext());
 
-    public BankDataBuilder WithEntities<T>(IEnumerable<T> entities)
-        where T : class
-    {
-        this.Context.AddRange(entities);
-        return this;
-    }
-
     public BankDataBuilder WithEntity<T>(T entity)
         where T : class
     {

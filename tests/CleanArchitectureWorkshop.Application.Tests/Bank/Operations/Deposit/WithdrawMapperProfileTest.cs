@@ -1,6 +1,7 @@
 using AutoFixture;
 using AutoMapper;
 using CleanArchitectureWorkshop.Application.Bank.Operations.Deposit;
+using CleanArchitectureWorkshop.Domain.Bank.Common;
 using FluentAssertions;
 
 namespace CleanArchitectureWorkshop.Application.Tests.Bank.Operations.Deposit;
@@ -21,7 +22,7 @@ public class DepositMapperProfileTest
     {
         var request = this.fixture.Create<DepositRequest>();
         var command = this.mapper.Map<DepositCommand>(request);
-        command.Amount.Should().Be(request.Amount);
+        command.Amount.Should().Be(Amount.FromValue(request.Amount));
         command.Id.Should().NotBeEmpty();
     }
 }

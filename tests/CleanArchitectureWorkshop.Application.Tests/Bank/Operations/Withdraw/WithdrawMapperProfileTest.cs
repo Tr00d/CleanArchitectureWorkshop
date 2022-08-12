@@ -1,6 +1,7 @@
 using AutoFixture;
 using AutoMapper;
 using CleanArchitectureWorkshop.Application.Bank.Operations.Withdraw;
+using CleanArchitectureWorkshop.Domain.Bank.Common;
 using FluentAssertions;
 
 namespace CleanArchitectureWorkshop.Application.Tests.Bank.Operations.Withdraw;
@@ -21,7 +22,7 @@ public class WithdrawMapperProfileTest
     {
         var request = this.fixture.Create<WithdrawRequest>();
         var command = this.mapper.Map<WithdrawCommand>(request);
-        command.Amount.Should().Be(request.Amount);
+        command.Amount.Should().Be(Amount.FromValue(request.Amount));
         command.Id.Should().NotBeEmpty();
     }
 }

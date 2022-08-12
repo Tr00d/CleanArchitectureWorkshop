@@ -24,7 +24,7 @@ public class Account
 
     public double LastDayWithdrawnAmount { get; }
 
-    public void Deposit(double amount, DateTime date)
+    public void Deposit(Amount amount, DateTime date)
     {
         if (!IsAmountValid(amount))
         {
@@ -35,15 +35,15 @@ public class Account
         this.IncreaseBalance(amount);
     }
 
-    private static Operation CreateDeposit(double amount, DateTime date) => new(date, amount);
+    private static Operation CreateDeposit(Amount amount, DateTime date) => Operation.FromValues(date, amount.Value);
 
-    private static bool IsAmountValid(double amount) => amount > 0;
+    private static bool IsAmountValid(Amount amount) => amount.Value > 0;
 
-    private void IncreaseBalance(double amount) => this.Balance += amount;
+    private void IncreaseBalance(Amount amount) => this.Balance += amount.Value;
 
     public IEnumerable<Operation> GetOperations() => new List<Operation>(this.operations);
 
-    public void Withdraw(double amount, DateTime date)
+    public void Withdraw(Amount amount, DateTime date)
     {
         if (!IsAmountValid(amount))
         {
@@ -54,7 +54,8 @@ public class Account
         this.DecreaseBalance(amount);
     }
 
-    private static Operation CreateWithdrawal(double amount, DateTime date) => new(date, -amount);
+    private static Operation CreateWithdrawal(Amount amount, DateTime date) =>
+        Operation.FromValues(date, -amount.Value);
 
-    private void DecreaseBalance(double amount) => this.Balance -= amount;
+    private void DecreaseBalance(Amount amount) => this.Balance -= amount.Value;
 }

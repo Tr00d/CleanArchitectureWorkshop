@@ -28,7 +28,8 @@ public class WithdrawHandlerTest
     [Trait("Category", "Unit")]
     public async Task Handle_ShouldUpdateAccountBalance_GivenWithdrawalSucceeds()
     {
-        var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, 100).Create();
+        var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, Amount.FromValue(100))
+            .Create();
         var account = new Account(500, 0);
         var expectedBalance = 400;
         var time = this.fixture.Create<DateTime>();
@@ -42,10 +43,11 @@ public class WithdrawHandlerTest
     [Trait("Category", "Unit")]
     public async Task Handle_ShouldAddWithdrawalOperation_GivenDepositSucceeds()
     {
-        var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, 100).Create();
+        var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, Amount.FromValue(100))
+            .Create();
         var account = new Account(500, 0);
         var time = this.fixture.Create<DateTime>();
-        var expectedOperations = new List<Operation> { new(time, -command.Amount) };
+        var expectedOperations = new List<Operation> { Operation.FromValues(time, -command.Amount.Value) };
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
         this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
         await this.handler.Handle(command, CancellationToken.None);
@@ -56,7 +58,8 @@ public class WithdrawHandlerTest
     [Trait("Category", "Unit")]
     public async Task Handle_ShouldUpdateOperations()
     {
-        var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, 100).Create();
+        var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, Amount.FromValue(100))
+            .Create();
         var account = new Account(500, 0);
         var time = this.fixture.Create<DateTime>();
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
@@ -71,7 +74,8 @@ public class WithdrawHandlerTest
     [Trait("Category", "Unit")]
     public async Task Handle_ShouldNotUpdateAccountBalance_GivenAmountIsNotPositive(int amount)
     {
-        var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, amount).Create();
+        var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, Amount.FromValue(amount))
+            .Create();
         var account = new Account(500, 0);
         var initialBalance = account.Balance;
         var time = this.fixture.Create<DateTime>();
@@ -87,7 +91,8 @@ public class WithdrawHandlerTest
     [Trait("Category", "Unit")]
     public async Task Handle_ShouldNotAddOperation_GivenAmountIsNotPositive(int amount)
     {
-        var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, amount).Create();
+        var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, Amount.FromValue(amount))
+            .Create();
         var account = new Account(500, 0);
         var time = this.fixture.Create<DateTime>();
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);

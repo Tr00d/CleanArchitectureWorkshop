@@ -33,9 +33,9 @@ public class HistoryRepositoryTest : IDisposable
             .CommitAsync();
         var expectedOperations = new List<Operation>
         {
-            new(new DateTime(2020, 01, 01), 15),
-            new(new DateTime(2020, 02, 01), 30),
-            new(new DateTime(2020, 03, 01), -15),
+            Operation.FromValues(new DateTime(2020, 01, 01), 15),
+            Operation.FromValues(new DateTime(2020, 02, 01), 30),
+            Operation.FromValues(new DateTime(2020, 03, 01), -15),
         };
         var account = await this.repository.GetAccountHistoryAsync();
         account.GetOperations().Should().BeEquivalentTo(expectedOperations);
