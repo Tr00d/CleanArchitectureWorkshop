@@ -72,32 +72,56 @@ public class WithdrawHandlerTest
     [InlineData(-500)]
     [InlineData(0)]
     [Trait("Category", "Unit")]
-    public async Task Handle_ShouldNotUpdateAccountBalance_GivenAmountIsNotPositive(int amount)
+    public async Task Handle_ShouldThrowInvalidAmountException_GivenAmountIsNotPositive(int amount)
     {
         var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, Amount.FromValue(amount))
             .Create();
         var account = new Account(500, 0);
-        var initialBalance = account.Balance;
         var time = this.fixture.Create<DateTime>();
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
         this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
-        await this.handler.Handle(command, CancellationToken.None);
-        account.Balance.Should().Be(initialBalance);
+        Func<Task> act = async () => await this.handler.Handle(command, CancellationToken.None);
+        await act.Should().ThrowAsync<InvalidAmountException>()
+            .WithMessage($"Invalid amount: {command.Amount.Value}")
+            .Where(exception => exception.InvalidAmount.Equals(command.Amount));
     }
 
-    [Theory]
-    [InlineData(-500)]
-    [InlineData(0)]
+    [Fact]
     [Trait("Category", "Unit")]
-    public async Task Handle_ShouldNotAddOperation_GivenAmountIsNotPositive(int amount)
+    public async Task Handle_ShouldThrowInsufficientProvisionException_GivenBalanceIsLowerThanAmount()
     {
-        var command = this.fixture.Build<WithdrawCommand>().With(command => command.Amount, Amount.FromValue(amount))
+        var command = this.fixture
+            .Build<WithdrawCommand>()
+            .With(command => command.Amount, Amount.FromValue(1000))
             .Create();
         var account = new Account(500, 0);
         var time = this.fixture.Create<DateTime>();
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
         this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
-        await this.handler.Handle(command, CancellationToken.None);
-        account.GetOperations().Should().BeEmpty();
+        Func<Task> act = async () => await this.handler.Handle(command, CancellationToken.None);
+        await act.Should().ThrowAsync<InsufficientProvisionException>()
+            .WithMessage($"Withdrawn amount is {command.Amount.Value} while balance is {account.Balance}.")
+            .Where(exception => exception.Balance.Equals(account.Balance))
+            .Where(exception => exception.WithdrawnAmount.Equals(command.Amount));
+    }
+
+    [Fact]
+    [Trait("Category", "Unit")]
+    public async Task Handle_ShouldThrowInsufficientProvisionException_GivenWithdrawnAmountExceedsThreshold()
+    {
+        var command = this.fixture
+            .Build<WithdrawCommand>()
+            .With(command => command.Amount, Amount.FromValue(1000))
+            .Create();
+        var account = new Account(10000, 2400);
+        var time = this.fixture.Create<DateTime>();
+        this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
+        this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
+        Func<Task> act = async () => await this.handler.Handle(command, CancellationToken.None);
+        await act.Should().ThrowAsync<ExceededWithdrawnThresholdException>()
+            .WithMessage(
+                $"Current withdrawn amount is {account.LastDayWithdrawnAmount}. The limit of {Account.WithdrawnAmountThreshold} will be exceeded when withdrawing {command.Amount.Value}.")
+            .Where(exception => exception.CurrentWithdrawnAmount.Equals(account.LastDayWithdrawnAmount))
+            .Where(exception => exception.WithdrawnAmount.Equals(command.Amount.Value));
     }
 }

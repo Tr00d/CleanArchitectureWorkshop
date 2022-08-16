@@ -44,3 +44,29 @@ User can retrieve statements
         Then I should see these statements:
           | Date            | Amount | Balance |
           | 10 January 2021 | 1000   | 1000    |
+
+    @Acceptance
+    Scenario: Withdrawal should not add statement when balance is too low
+        Given I make a deposit of 1000 on '10 January 2021'
+        And I make a withdrawal of 1500 on '20 January 2021'
+        When I retrieve the account statements
+        Then I should see these statements:
+          | Date            | Amount | Balance |
+          | 10 January 2021 | 1000   | 1000    |
+
+    @Acceptance
+    Scenario: Withdrawal should not add statement when withdrawn amount exceeds threshold
+        Given I make a deposit of 10000 on '10 January 2021'
+        And I make a withdrawal of 1500 on '20 January 2021 05:00:00'
+        And I make a withdrawal of 500 on '20 January 2021 06:00:00'
+        And I make a withdrawal of 250 on '20 January 2021 07:00:00'
+        And I make a withdrawal of 250 on '20 January 2021 07:30:00'
+        And I make a withdrawal of 750 on '20 January 2021 10:00:00'
+        When I retrieve the account statements
+        Then I should see these statements:
+          | Date                     | Amount | Balance |
+          | 20 January 2021 07:30:00 | -250   | 7500    |
+          | 20 January 2021 07:00:00 | -250   | 7750    |
+          | 20 January 2021 06:00:00 | -500   | 8000    |
+          | 20 January 2021 05:00:00 | -1500  | 8500    |
+          | 10 January 2021          | 10000  | 10000   |

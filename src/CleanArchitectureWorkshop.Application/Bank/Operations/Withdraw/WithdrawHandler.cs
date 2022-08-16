@@ -17,9 +17,9 @@ public class WithdrawHandler : IRequestHandler<WithdrawCommand>
 
     public async Task<Unit> Handle(WithdrawCommand request, CancellationToken cancellationToken)
     {
-        var theAccount = await this.repository.GetAccountAsync();
-        theAccount.Withdraw(request.Amount, this.timeProvider.UtcNow);
-        await this.repository.SaveOperationsAsync(theAccount.GetOperations());
+        var account = await this.repository.GetAccountAsync();
+        account.Withdraw(request.Amount, this.timeProvider.UtcNow);
+        await this.repository.SaveOperationsAsync(account.GetOperations());
         return Unit.Value;
     }
 }

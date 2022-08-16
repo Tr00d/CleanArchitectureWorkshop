@@ -29,7 +29,7 @@ public class DepositHandlerTest
     public async Task Handle_ShouldUpdateAccountBalance_GivenDepositSucceeds()
     {
         var command = this.fixture.Create<DepositCommand>();
-        var account = new Account();
+        var account = new Account(default, default);
         var time = this.fixture.Create<DateTime>();
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
         this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
@@ -42,7 +42,7 @@ public class DepositHandlerTest
     public async Task Handle_ShouldAddDepositOperation_GivenDepositSucceeds()
     {
         var command = this.fixture.Create<DepositCommand>();
-        var account = new Account();
+        var account = new Account(default, default);
         var time = this.fixture.Create<DateTime>();
         var expectedOperations = new List<Operation> { Operation.FromValues(time, command.Amount.Value) };
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
@@ -56,7 +56,7 @@ public class DepositHandlerTest
     public async Task Handle_ShouldUpdateOperations()
     {
         var command = this.fixture.Create<DepositCommand>();
-        var account = new Account();
+        var account = new Account(default, default);
         var time = this.fixture.Create<DateTime>();
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
         this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
@@ -68,32 +68,17 @@ public class DepositHandlerTest
     [InlineData(-500)]
     [InlineData(0)]
     [Trait("Category", "Unit")]
-    public async Task Handle_ShouldNotUpdateAccountBalance_GivenAmountIsNotPositive(int amount)
+    public async Task Handle_ShouldThrowInvalidAmountException_GivenAmountIsNotPositive(int amount)
     {
         var command = this.fixture.Build<DepositCommand>().With(command => command.Amount, Amount.FromValue(amount))
             .Create();
-        var account = new Account();
-        var initialBalance = account.Balance;
+        var account = new Account(default, default);
         var time = this.fixture.Create<DateTime>();
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
         this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
-        await this.handler.Handle(command, CancellationToken.None);
-        account.Balance.Should().Be(initialBalance);
-    }
-
-    [Theory]
-    [InlineData(-500)]
-    [InlineData(0)]
-    [Trait("Category", "Unit")]
-    public async Task Handle_ShouldNotAddOperation_GivenAmountIsNotPositive(int amount)
-    {
-        var command = this.fixture.Build<DepositCommand>().With(command => command.Amount, Amount.FromValue(amount))
-            .Create();
-        var account = new Account();
-        var time = this.fixture.Create<DateTime>();
-        this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
-        this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
-        await this.handler.Handle(command, CancellationToken.None);
-        account.GetOperations().Should().BeEmpty();
+        Func<Task> act = async () => await this.handler.Handle(command, CancellationToken.None);
+        await act.Should().ThrowAsync<InvalidAmountException>()
+            .WithMessage($"Invalid amount: {command.Amount.Value}")
+            .Where(exception => exception.InvalidAmount.Equals(command.Amount));
     }
 }

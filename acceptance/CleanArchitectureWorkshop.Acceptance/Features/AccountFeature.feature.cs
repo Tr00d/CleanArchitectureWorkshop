@@ -290,6 +290,122 @@ namespace CleanArchitectureWorkshop.Acceptance.Features
             this.ScenarioCleanup();
         }
         
+        [Xunit.SkippableFactAttribute(DisplayName="Withdrawal should not add statement when balance is too low")]
+        [Xunit.TraitAttribute("FeatureTitle", "AccountFeature")]
+        [Xunit.TraitAttribute("Description", "Withdrawal should not add statement when balance is too low")]
+        [Xunit.TraitAttribute("Category", "Acceptance")]
+        public void WithdrawalShouldNotAddStatementWhenBalanceIsTooLow()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "Acceptance"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Withdrawal should not add statement when balance is too low", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 49
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 50
+        testRunner.Given("I make a deposit of 1000 on \'10 January 2021\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 51
+        testRunner.And("I make a withdrawal of 1500 on \'20 January 2021\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 52
+        testRunner.When("I retrieve the account statements", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Date",
+                            "Amount",
+                            "Balance"});
+                table4.AddRow(new string[] {
+                            "10 January 2021",
+                            "1000",
+                            "1000"});
+#line 53
+        testRunner.Then("I should see these statements:", ((string)(null)), table4, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Withdrawal should not add statement when withdrawn amount exceeds threshold")]
+        [Xunit.TraitAttribute("FeatureTitle", "AccountFeature")]
+        [Xunit.TraitAttribute("Description", "Withdrawal should not add statement when withdrawn amount exceeds threshold")]
+        [Xunit.TraitAttribute("Category", "Acceptance")]
+        public void WithdrawalShouldNotAddStatementWhenWithdrawnAmountExceedsThreshold()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "Acceptance"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Withdrawal should not add statement when withdrawn amount exceeds threshold", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 58
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 59
+        testRunner.Given("I make a deposit of 10000 on \'10 January 2021\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 60
+        testRunner.And("I make a withdrawal of 1500 on \'20 January 2021 05:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 61
+        testRunner.And("I make a withdrawal of 500 on \'20 January 2021 06:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 62
+        testRunner.And("I make a withdrawal of 250 on \'20 January 2021 07:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 63
+        testRunner.And("I make a withdrawal of 250 on \'20 January 2021 07:30:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 64
+        testRunner.And("I make a withdrawal of 750 on \'20 January 2021 10:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 65
+        testRunner.When("I retrieve the account statements", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Date",
+                            "Amount",
+                            "Balance"});
+                table5.AddRow(new string[] {
+                            "20 January 2021 07:30:00",
+                            "-250",
+                            "7500"});
+                table5.AddRow(new string[] {
+                            "20 January 2021 07:00:00",
+                            "-250",
+                            "7750"});
+                table5.AddRow(new string[] {
+                            "20 January 2021 06:00:00",
+                            "-500",
+                            "8000"});
+                table5.AddRow(new string[] {
+                            "20 January 2021 05:00:00",
+                            "-1500",
+                            "8500"});
+                table5.AddRow(new string[] {
+                            "10 January 2021",
+                            "10000",
+                            "10000"});
+#line 66
+        testRunner.Then("I should see these statements:", ((string)(null)), table5, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable
