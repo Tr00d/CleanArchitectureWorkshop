@@ -13,6 +13,7 @@ public class DepositRequestValidationTest
     }
 
     [Fact]
+    [Trait("Category", "Unit")]
     public void Validate_ShouldFail_GivenAmountIsNegative()
     {
         var request = new DepositRequest(-10);
@@ -22,6 +23,7 @@ public class DepositRequestValidationTest
     }
 
     [Fact]
+    [Trait("Category", "Unit")]
     public void Validate_ShouldSucceed_GivenAmountIsZero()
     {
         var request = new DepositRequest(0);
@@ -30,6 +32,7 @@ public class DepositRequestValidationTest
     }
 
     [Fact]
+    [Trait("Category", "Unit")]
     public void Validate_ShouldSucceed_GivenAmountIsPositive()
     {
         var request = new DepositRequest(10);

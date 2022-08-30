@@ -18,6 +18,7 @@ public class WithdrawMapperProfileTest
     }
 
     [Fact]
+    [Trait("Category", "Unit")]
     public void Map_ShouldConvertRequestIntoCommand()
     {
         var request = this.fixture.Create<WithdrawRequest>();

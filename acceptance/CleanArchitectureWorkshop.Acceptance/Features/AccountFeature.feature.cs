@@ -40,8 +40,8 @@ namespace CleanArchitectureWorkshop.Acceptance.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "AccountFeature", "User can deposit into Account\r\nUser can withdraw from an Account\r\nUser can retrie" +
-                    "ve statements", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "AccountFeature", "User can deposit into Account\nUser can withdraw from an Account\nUser can retrieve" +
+                    " statements", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         

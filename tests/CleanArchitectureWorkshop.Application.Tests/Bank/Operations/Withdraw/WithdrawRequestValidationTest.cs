@@ -13,6 +13,7 @@ public class WithdrawRequestValidationTest
     }
 
     [Fact]
+    [Trait("Category", "Unit")]
     public void Validate_ShouldFail_GivenAmountIsNegative()
     {
         var request = new WithdrawRequest(-10);
@@ -22,6 +23,7 @@ public class WithdrawRequestValidationTest
     }
 
     [Fact]
+    [Trait("Category", "Unit")]
     public void Validate_ShouldSucceed_GivenAmountIsZero()
     {
         var request = new WithdrawRequest(0);
@@ -30,6 +32,7 @@ public class WithdrawRequestValidationTest
     }
 
     [Fact]
+    [Trait("Category", "Unit")]
     public void Validate_ShouldSucceed_GivenAmountIsPositive()
     {
         var request = new WithdrawRequest(10);
