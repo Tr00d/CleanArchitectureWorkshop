@@ -40,8 +40,8 @@ namespace CleanArchitectureWorkshop.Acceptance.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "AccountFeature", "User can deposit into Account\nUser can withdraw from an Account\nUser can retrieve" +
-                    " statements", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "AccountFeature", "User can deposit into Account\r\nUser can withdraw from an Account\r\nUser can retrie" +
+                    "ve statements", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -401,6 +401,42 @@ namespace CleanArchitectureWorkshop.Acceptance.Features
                             "10000"});
 #line 66
         testRunner.Then("I should see these statements:", ((string)(null)), table5, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="A user should display the account balance")]
+        [Xunit.TraitAttribute("FeatureTitle", "AccountFeature")]
+        [Xunit.TraitAttribute("Description", "A user should display the account balance")]
+        [Xunit.TraitAttribute("Category", "Acceptance")]
+        public void AUserShouldDisplayTheAccountBalance()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "Acceptance"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("A user should display the account balance", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 75
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 76
+        testRunner.Given("I make a deposit of 10.80 on \'01 September 2022\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 77
+        testRunner.And("I make a withdrawal of 1.75 on \'02 September 2022 05:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 78
+        testRunner.When("I see my account balance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 79
+        testRunner.Then("The balance should be 9.05", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

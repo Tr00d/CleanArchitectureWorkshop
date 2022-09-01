@@ -1,5 +1,6 @@
 using AutoMapper;
 using CleanArchitectureWorkshop.Application.Bank.Operations.Deposit;
+using CleanArchitectureWorkshop.Application.Bank.Operations.GetBalance;
 using CleanArchitectureWorkshop.Application.Bank.Operations.Withdraw;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,12 @@ namespace CleanArchitectureWorkshop.Api.Bank.Operations
             var command = this.mapper.Map<DepositCommand>(request);
             await this.mediator.Send(command);
             return this.Ok(command.Id);
+        }
+
+        [HttpGet("balance")]
+        public async Task<OkObjectResult> GetBalance()
+        {
+            return Ok(await this.mediator.Send(new GetBalanceQuery()));
         }
     }
 }

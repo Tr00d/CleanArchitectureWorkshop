@@ -70,3 +70,10 @@ User can retrieve statements
           | 20 January 2021 06:00:00 | -500   | 8000    |
           | 20 January 2021 05:00:00 | -1500  | 8500    |
           | 10 January 2021          | 10000  | 10000   |
+
+    @Acceptance
+    Scenario: A user should display the account balance
+        Given I make a deposit of 10.80 on '01 September 2022'
+        And I make a withdrawal of 1.75 on '02 September 2022 05:00:00'
+        When I see my account balance
+        Then The balance should be 9.05

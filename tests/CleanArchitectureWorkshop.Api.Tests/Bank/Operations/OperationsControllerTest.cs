@@ -4,6 +4,7 @@ using AutoFixture;
 using AutoMapper;
 using CleanArchitectureWorkshop.Api.Bank.Operations;
 using CleanArchitectureWorkshop.Application.Bank.Operations.Deposit;
+using CleanArchitectureWorkshop.Application.Bank.Operations.GetBalance;
 using CleanArchitectureWorkshop.Application.Bank.Operations.Withdraw;
 using FluentAssertions;
 using MediatR;
@@ -70,5 +71,15 @@ public class OperationsControllerTest
         this.mockMapper.Setup(mapper => mapper.Map<WithdrawCommand>(request)).Returns(command);
         await this.controller.WithdrawAsync(request);
         this.mockMediator.Verify(mediator => mediator.Send(command, It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Fact]
+    [Trait("Category", "Unit")]
+    public async Task GetBalance_ShouldReturnBalance()
+    {
+        this.mockMediator.Setup(mediator =>
+            mediator.Send(It.IsAny<GetBalanceQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(50);
+        var balance = await this.controller.GetBalance();
+        balance.Value.Should().Be(50);
     }
 }

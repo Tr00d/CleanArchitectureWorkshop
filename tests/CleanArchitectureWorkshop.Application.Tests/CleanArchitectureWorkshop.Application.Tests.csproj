@@ -27,7 +27,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\src\CleanArchitectureWorkshop.Application\CleanArchitectureWorkshop.Application.csproj" />
-        <ProjectReference Include="..\..\src\CleanArchitectureWorkshop.Domain\CleanArchitectureWorkshop.Domain.csproj"/>
+        <ProjectReference Include="..\..\src\CleanArchitectureWorkshop.Domain\CleanArchitectureWorkshop.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>

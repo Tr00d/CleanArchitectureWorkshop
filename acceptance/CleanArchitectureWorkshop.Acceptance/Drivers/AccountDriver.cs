@@ -49,4 +49,13 @@ public class AccountDriver
         return JsonConvert.DeserializeObject<GetStatementsResponse>(content) ??
                throw new InvalidOperationException("Cannot deserialize GetStatementsResponse");
     }
+
+    public async Task RetrieveAccountBalanceAsync() =>
+        await this.client.ProcessRequest(HttpMethod.Get, $"{OperationsUri}/balance");
+
+    public async Task<double> GetRetrievedAccountBalanceAsync()
+    {
+        var content = await this.client.ReadResponseContentAsync();
+        return JsonConvert.DeserializeObject<double>(content);
+    }
 }
