@@ -27,4 +27,15 @@ public class StringCalculatorTest
 
     [Fact]
     public void Add_ShouldReturnSix_GivenNumbersIsOneAndTwoAndThree() => this.calculator.Add("1,2,3").Should().Be(6);
+    
+    [Fact]
+    public void Add_ShouldReturnSix_GivenNumbersIsOneAndTwoAndThreeWithBackslashSeparators() => this.calculator.Add("1\n2,3").Should().Be(6);
+    
+    [Theory]
+    [InlineData("//;\n1;2", 3)]
+    [InlineData("//-\n1-2", 3)]
+    public void Add_ShouldReturnThree_GivenNumbersContainsCustomSeparators(string inNumbers, int inResult) => this.calculator.Add(inNumbers).Should().Be(inResult);
+    
+    [Fact]
+    public void Add_ShouldThrowException_GivenNumbersContainsNegativeNumbers() => Assert.Throws<Exception>(() => calculator.Add("1,-1"));
 }
