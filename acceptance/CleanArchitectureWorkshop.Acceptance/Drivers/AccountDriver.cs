@@ -62,13 +62,17 @@ public class AccountDriver
 
     public void EnableFeature(string inFeatureName)
     {
-        IConfiguration configuration = this.context.ServiceProvider.GetRequiredService<IConfiguration>();
-        configuration[$"FeatureManagement:{inFeatureName}"] = true.ToString();
+        ToggleFeature(inFeatureName, true);
     }
 
     public void DisableFeature(string inFeatureName)
     {
+        ToggleFeature(inFeatureName, false);
+    }
+
+    private void ToggleFeature(string inFeatureName, bool inIsEnabled)
+    {
         IConfiguration configuration = this.context.ServiceProvider.GetRequiredService<IConfiguration>();
-        configuration[$"FeatureManagement:{inFeatureName}"] = false.ToString();
+        configuration[$"FeatureManagement:{inFeatureName}"] = inIsEnabled.ToString();
     }
 }

@@ -27,7 +27,8 @@ public class Account
     public double Balance { get; private set; }
 
     public double LastDayWithdrawnAmount { get; }
-    public bool IsWithdrawLimited { get; set; }
+
+    public bool IsWithdrawLimited { get; }
 
     public void Deposit(Amount amount, DateTime date)
     {
