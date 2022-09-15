@@ -50,4 +50,15 @@ public class AccountSteps
         response.Should().Be(inBalance);
     }
 
+    [Given(@"The feature '(.*)' is enabled")]
+    public void GivenTheFeatureIsEnabled(string inFeatureName)
+    {
+        this.driver.EnableFeature(inFeatureName);
+    }
+
+    [Given(@"The feature '(.*)' is disabled")]
+    public void GivenTheFeatureIsDisabled(string inFeatureName)
+    {
+        this.driver.DisableFeature(inFeatureName);
+    }
 }

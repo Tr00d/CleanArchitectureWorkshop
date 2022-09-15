@@ -113,7 +113,7 @@ public class WithdrawHandlerTest
             .Build<WithdrawCommand>()
             .With(command => command.Amount, Amount.FromValue(1000))
             .Create();
-        var account = new Account(10000, 2400);
+        var account = new Account(10000, 2400, true);
         var time = this.fixture.Create<DateTime>();
         this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
         this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
@@ -123,5 +123,22 @@ public class WithdrawHandlerTest
                 $"Current withdrawn amount is {account.LastDayWithdrawnAmount}. The limit of {Account.WithdrawnAmountThreshold} will be exceeded when withdrawing {command.Amount.Value}.")
             .Where(exception => exception.CurrentWithdrawnAmount.Equals(account.LastDayWithdrawnAmount))
             .Where(exception => exception.WithdrawnAmount.Equals(command.Amount.Value));
+    }
+
+    [Fact]
+    [Trait("Category", "Unit")]
+    public async Task Handle_ShouldAddWithdrawalOperation_GivenWithdrawnAmountExceedsThresholdAndFeatureIsDisabled()
+    {
+        var command = this.fixture
+            .Build<WithdrawCommand>()
+            .With(command => command.Amount, Amount.FromValue(1000))
+            .Create();
+        var account = new Account(10000, 2400, false);
+        var time = this.fixture.Create<DateTime>();
+        var expectedOperations = new List<Operation> { Operation.FromValues(time, -command.Amount.Value) };
+        this.mockRepository.Setup(repository => repository.GetAccountAsync()).ReturnsAsync(account);
+        this.mockTimeProvider.Setup(timeProvider => timeProvider.UtcNow).Returns(time);
+        await this.handler.Handle(command, CancellationToken.None);
+        account.GetOperations().Should().BeEquivalentTo(expectedOperations);
     }
 }

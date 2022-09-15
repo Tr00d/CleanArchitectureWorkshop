@@ -3,6 +3,7 @@ using CleanArchitectureWorkshop.Acceptance.Support;
 using CleanArchitectureWorkshop.Application.Bank.History.GetStatements;
 using CleanArchitectureWorkshop.Application.Bank.Operations.Deposit;
 using CleanArchitectureWorkshop.Application.Bank.Operations.Withdraw;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
@@ -57,5 +58,17 @@ public class AccountDriver
     {
         var content = await this.client.ReadResponseContentAsync();
         return JsonConvert.DeserializeObject<double>(content);
+    }
+
+    public void EnableFeature(string inFeatureName)
+    {
+        IConfiguration configuration = this.context.ServiceProvider.GetRequiredService<IConfiguration>();
+        configuration[$"FeatureManagement:{inFeatureName}"] = true.ToString();
+    }
+
+    public void DisableFeature(string inFeatureName)
+    {
+        IConfiguration configuration = this.context.ServiceProvider.GetRequiredService<IConfiguration>();
+        configuration[$"FeatureManagement:{inFeatureName}"] = false.ToString();
     }
 }

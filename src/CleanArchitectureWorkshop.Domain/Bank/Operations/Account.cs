@@ -19,9 +19,15 @@ public class Account
         this.LastDayWithdrawnAmount = lastDayWithdrawnAmount;
     }
 
+    public Account(double balance, double lastDayWithdrawnAmount, bool isWithdrawLimited) : this(balance, lastDayWithdrawnAmount)
+    {
+        this.IsWithdrawLimited = isWithdrawLimited;
+    }
+
     public double Balance { get; private set; }
 
     public double LastDayWithdrawnAmount { get; }
+    public bool IsWithdrawLimited { get; set; }
 
     public void Deposit(Amount amount, DateTime date)
     {
@@ -65,7 +71,7 @@ public class Account
 
     private void ValidateThreshold(Amount amount)
     {
-        if (!this.IsAmountUnderWithdrawnThreshold(amount))
+        if (this.IsWithdrawLimited && !this.IsAmountUnderWithdrawnThreshold(amount))
         {
             throw new ExceededWithdrawnThresholdException(this.LastDayWithdrawnAmount,
                 amount.Value);

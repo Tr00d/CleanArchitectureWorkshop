@@ -3,6 +3,7 @@ using CleanArchitectureWorkshop.Infrastructure;
 using CleanArchitectureWorkshop.Infrastructure.Bank;
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.FeatureManagement;
 using ServicesRegistration = CleanArchitectureWorkshop.Application.ServicesRegistration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ builder.Services.AddMvc().AddFluentValidation();
 builder.Services.AddSwaggerGen();
 builder.Services.RegisterApplication();
 builder.Services.RegisterInfrastructure(builder.Configuration);
+builder.Services.AddFeatureManagement();
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {

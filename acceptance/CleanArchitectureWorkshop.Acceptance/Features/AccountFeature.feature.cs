@@ -334,16 +334,19 @@ namespace CleanArchitectureWorkshop.Acceptance.Features
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Withdrawal should not add statement when withdrawn amount exceeds threshold")]
+        [Xunit.SkippableFactAttribute(DisplayName="Withdrawal should not add statement when withdrawn amount exceeds threshold and f" +
+            "eature is enabled")]
         [Xunit.TraitAttribute("FeatureTitle", "AccountFeature")]
-        [Xunit.TraitAttribute("Description", "Withdrawal should not add statement when withdrawn amount exceeds threshold")]
+        [Xunit.TraitAttribute("Description", "Withdrawal should not add statement when withdrawn amount exceeds threshold and f" +
+            "eature is enabled")]
         [Xunit.TraitAttribute("Category", "Acceptance")]
-        public void WithdrawalShouldNotAddStatementWhenWithdrawnAmountExceedsThreshold()
+        public void WithdrawalShouldNotAddStatementWhenWithdrawnAmountExceedsThresholdAndFeatureIsEnabled()
         {
             string[] tagsOfScenario = new string[] {
                     "Acceptance"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Withdrawal should not add statement when withdrawn amount exceeds threshold", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Withdrawal should not add statement when withdrawn amount exceeds threshold and f" +
+                    "eature is enabled", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 58
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -355,24 +358,27 @@ namespace CleanArchitectureWorkshop.Acceptance.Features
             {
                 this.ScenarioStart();
 #line 59
-        testRunner.Given("I make a deposit of 10000 on \'10 January 2021\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.Given("The feature \'WithdrawThreshold\' is enabled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 60
-        testRunner.And("I make a withdrawal of 1500 on \'20 January 2021 05:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And("I make a deposit of 10000 on \'10 January 2021\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 61
-        testRunner.And("I make a withdrawal of 500 on \'20 January 2021 06:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And("I make a withdrawal of 1500 on \'20 January 2021 05:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 62
-        testRunner.And("I make a withdrawal of 250 on \'20 January 2021 07:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And("I make a withdrawal of 500 on \'20 January 2021 06:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 63
-        testRunner.And("I make a withdrawal of 250 on \'20 January 2021 07:30:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And("I make a withdrawal of 250 on \'20 January 2021 07:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 64
-        testRunner.And("I make a withdrawal of 750 on \'20 January 2021 10:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And("I make a withdrawal of 250 on \'20 January 2021 07:30:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 65
+        testRunner.And("I make a withdrawal of 750 on \'20 January 2021 10:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 66
         testRunner.When("I retrieve the account statements", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
@@ -399,8 +405,90 @@ namespace CleanArchitectureWorkshop.Acceptance.Features
                             "10 January 2021",
                             "10000",
                             "10000"});
-#line 66
+#line 67
         testRunner.Then("I should see these statements:", ((string)(null)), table5, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Withdrawal should add statement when withdrawn amount exceeds threshold and featu" +
+            "re is disabled")]
+        [Xunit.TraitAttribute("FeatureTitle", "AccountFeature")]
+        [Xunit.TraitAttribute("Description", "Withdrawal should add statement when withdrawn amount exceeds threshold and featu" +
+            "re is disabled")]
+        [Xunit.TraitAttribute("Category", "Acceptance")]
+        public void WithdrawalShouldAddStatementWhenWithdrawnAmountExceedsThresholdAndFeatureIsDisabled()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "Acceptance"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Withdrawal should add statement when withdrawn amount exceeds threshold and featu" +
+                    "re is disabled", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 76
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 77
+        testRunner.Given("The feature \'WithdrawThreshold\' is disabled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 78
+        testRunner.And("I make a deposit of 10000 on \'10 January 2021\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 79
+        testRunner.And("I make a withdrawal of 1500 on \'20 January 2021 05:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 80
+        testRunner.And("I make a withdrawal of 500 on \'20 January 2021 06:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 81
+        testRunner.And("I make a withdrawal of 250 on \'20 January 2021 07:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 82
+        testRunner.And("I make a withdrawal of 250 on \'20 January 2021 07:30:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 83
+        testRunner.And("I make a withdrawal of 750 on \'20 January 2021 10:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 84
+        testRunner.When("I retrieve the account statements", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Date",
+                            "Amount",
+                            "Balance"});
+                table6.AddRow(new string[] {
+                            "20 January 2021 10:00:00",
+                            "-750",
+                            "6750"});
+                table6.AddRow(new string[] {
+                            "20 January 2021 07:30:00",
+                            "-250",
+                            "7500"});
+                table6.AddRow(new string[] {
+                            "20 January 2021 07:00:00",
+                            "-250",
+                            "7750"});
+                table6.AddRow(new string[] {
+                            "20 January 2021 06:00:00",
+                            "-500",
+                            "8000"});
+                table6.AddRow(new string[] {
+                            "20 January 2021 05:00:00",
+                            "-1500",
+                            "8500"});
+                table6.AddRow(new string[] {
+                            "10 January 2021",
+                            "10000",
+                            "10000"});
+#line 85
+        testRunner.Then("I should see these statements:", ((string)(null)), table6, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -416,7 +504,7 @@ namespace CleanArchitectureWorkshop.Acceptance.Features
                     "Acceptance"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("A user should display the account balance", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 75
+#line 95
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -426,16 +514,16 @@ namespace CleanArchitectureWorkshop.Acceptance.Features
             else
             {
                 this.ScenarioStart();
-#line 76
+#line 96
         testRunner.Given("I make a deposit of 10.80 on \'01 September 2022\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 77
+#line 97
         testRunner.And("I make a withdrawal of 1.75 on \'02 September 2022 05:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 78
+#line 98
         testRunner.When("I see my account balance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 79
+#line 99
         testRunner.Then("The balance should be 9.05", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

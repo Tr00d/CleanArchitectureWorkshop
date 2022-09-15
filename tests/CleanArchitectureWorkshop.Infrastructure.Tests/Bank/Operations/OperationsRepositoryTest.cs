@@ -5,6 +5,7 @@ using CleanArchitectureWorkshop.Infrastructure.Bank.Entities;
 using CleanArchitectureWorkshop.Infrastructure.Bank.Operations;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.FeatureManagement;
 using Moq;
 
 namespace CleanArchitectureWorkshop.Infrastructure.Tests.Bank.Operations;
@@ -15,6 +16,7 @@ public class OperationsRepositoryTest : IDisposable
     private readonly BankDataBuilder dataBuilder;
     private readonly Fixture fixture;
     private readonly Mock<ITimeProvider> mockTimeProvider;
+    private readonly Mock<IFeatureManager> mockFeatureManager;
     private readonly OperationsRepository repository;
 
     public OperationsRepositoryTest()
@@ -22,7 +24,8 @@ public class OperationsRepositoryTest : IDisposable
         this.fixture = new Fixture();
         this.dataBuilder = BankDataBuilder.Build();
         this.mockTimeProvider = new Mock<ITimeProvider>();
-        this.repository = new OperationsRepository(this.dataBuilder.Context, this.mockTimeProvider.Object);
+        this.mockFeatureManager = new Mock<IFeatureManager>();
+        this.repository = new OperationsRepository(this.dataBuilder.Context, this.mockTimeProvider.Object, this.mockFeatureManager.Object);
     }
 
     public void Dispose()
@@ -74,5 +77,17 @@ public class OperationsRepositoryTest : IDisposable
         this.mockTimeProvider.Setup(provider => provider.UtcNow).Returns(time);
         var account = await this.repository.GetAccountAsync();
         account.LastDayWithdrawnAmount.Should().Be(expectedAmount);
+    }
+
+    [Theory]
+    [Trait("Category", "Integration")]
+    [InlineData(true, true)]
+    [InlineData(false, false)]
+    public async Task GetAccountAsyncWithdrawnAmount_ShouldReturnAccountWithWithdrawLimitEnabled_WhenFeatureIsEnabled(bool inFeatureValue, bool inExpectedResult)
+    {
+        this.mockTimeProvider.Setup(provider => provider.UtcNow).Returns(this.fixture.Create<DateTime>());
+        this.mockFeatureManager.Setup(manager => manager.IsEnabledAsync("WithdrawThreshold")).ReturnsAsync(inFeatureValue);
+        var account = await this.repository.GetAccountAsync();
+        account.IsWithdrawLimited.Should().Be(inExpectedResult);
     }
 }
