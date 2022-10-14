@@ -2,7 +2,6 @@ name: Build
 on: [push]
 jobs:
   build-test:
-    timeout-minutes: 5
     name: Build & Test
     runs-on: ubuntu-latest
     steps:
@@ -35,7 +34,6 @@ jobs:
   
   sonarsource:
     needs: build-test
-    timeout-minutes: 5
     name: Sonarsource Analysis
     runs-on: windows-latest
     steps:
