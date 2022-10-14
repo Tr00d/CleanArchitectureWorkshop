@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yml = docker-compose.yml
 		README.md = README.md
 		.gitignore = .gitignore
+		.github\workflows\build.yml = .github\workflows\build.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitectureWorkshop.Acceptance", "acceptance\CleanArchitectureWorkshop.Acceptance\CleanArchitectureWorkshop.Acceptance.csproj", "{EB847C58-AA4E-4716-A2AC-CD55B2EBC40C}"
