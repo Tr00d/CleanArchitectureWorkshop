@@ -6,7 +6,7 @@ namespace CleanArchitectureWorkshop.Infrastructure.Tests.Bank;
 public class BankDataBuilder
 {
     private const string ConnectionString =
-        "Server=localhost; Database=Workshop; User Id=sa; Password=Password@123; TrustServerCertificate=True";
+        "Server=localhost; Database=workshop-database; User Id=sa; Password=Password@123; TrustServerCertificate=True";
 
     private BankDataBuilder(BankContext context)
     {
