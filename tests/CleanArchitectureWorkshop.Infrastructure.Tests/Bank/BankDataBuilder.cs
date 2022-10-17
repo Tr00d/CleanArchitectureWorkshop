@@ -6,7 +6,7 @@ namespace CleanArchitectureWorkshop.Infrastructure.Tests.Bank;
 public class BankDataBuilder
 {
     private const string ConnectionString =
-        "Server=localhost; Database=workshop-database; User Id=sa; Password=Password@123; TrustServerCertificate=True";
+        "Server=localhost; Database={databaseName}; User Id=sa; Password=Password@123; TrustServerCertificate=True";
 
     private BankDataBuilder(BankContext context)
     {
@@ -17,7 +17,7 @@ public class BankDataBuilder
 
     public async Task CommitAsync() => await this.Context.SaveChangesAsync();
 
-    public static BankDataBuilder Build() => new(CreateContext());
+    public static BankDataBuilder Build(string databaseName) => new(CreateContext(databaseName));
 
     public BankDataBuilder WithEntity<T>(T entity)
         where T : class
@@ -26,13 +26,16 @@ public class BankDataBuilder
         return this;
     }
 
-    private static BankContext CreateContext()
+    private static BankContext CreateContext(string databaseName)
     {
         var options = new DbContextOptionsBuilder<BankContext>()
-            .UseSqlServer(ConnectionString)
+            .UseSqlServer(BuildConnectionString(databaseName))
             .Options;
         var bankContext = new BankContext(options);
         bankContext.Database.EnsureCreated();
         return bankContext;
     }
+
+    private static string BuildConnectionString(string databaseName) =>
+        ConnectionString.Replace("{databaseName}", databaseName);
 }

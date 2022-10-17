@@ -22,7 +22,7 @@ public class OperationsRepositoryTest : IDisposable
     public OperationsRepositoryTest()
     {
         this.fixture = new Fixture();
-        this.dataBuilder = BankDataBuilder.Build();
+        this.dataBuilder = BankDataBuilder.Build(nameof(OperationsRepositoryTest));
         this.mockTimeProvider = new Mock<ITimeProvider>();
         this.mockFeatureManager = new Mock<IFeatureManager>();
         this.repository = new OperationsRepository(this.dataBuilder.Context, this.mockTimeProvider.Object, this.mockFeatureManager.Object);
