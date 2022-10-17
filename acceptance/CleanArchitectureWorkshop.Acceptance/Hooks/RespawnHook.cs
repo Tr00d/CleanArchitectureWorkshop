@@ -11,7 +11,7 @@ public class RespawnHook
 {
     private static Checkpoint? checkpoint;
     private static string connectionString = string.Empty;
-    private static BankContext bankContext;
+    private static BankContext? bankContext;
 
     public RespawnHook(ApplicationContext context)
     {
@@ -42,6 +42,9 @@ public class RespawnHook
 
     private static async Task TearDownDatabase()
     {
+        if (bankContext is null)
+            return;
+        
         await bankContext.Database.EnsureDeletedAsync();
         await bankContext.DisposeAsync();
     }

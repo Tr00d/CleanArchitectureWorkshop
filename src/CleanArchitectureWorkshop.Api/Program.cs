@@ -41,4 +41,8 @@ void EnsureDatabaseCreated(IHost webApplication)
 
 public partial class Program
 {
+    protected Program()
+    {
+        
+    }
 }
