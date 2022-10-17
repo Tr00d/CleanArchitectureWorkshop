@@ -39,4 +39,26 @@ public class AccountSteps
         var response = await this.driver.GetRetrievedStatementsAsync();
         response.History.Should().BeEmpty();
     }
+
+    [When(@"I see my account balance")]
+    public async Task WhenISeeMyAccountBalance() => await this.driver.RetrieveAccountBalanceAsync();
+
+    [Then(@"The balance should be (.*)")]
+    public async Task ThenTheBalanceShouldBe(double inBalance)
+    {
+        var response = await this.driver.GetRetrievedAccountBalanceAsync();
+        response.Should().Be(inBalance);
+    }
+
+    [Given(@"The feature '(.*)' is enabled")]
+    public void GivenTheFeatureIsEnabled(string inFeatureName)
+    {
+        this.driver.EnableFeature(inFeatureName);
+    }
+
+    [Given(@"The feature '(.*)' is disabled")]
+    public void GivenTheFeatureIsDisabled(string inFeatureName)
+    {
+        this.driver.DisableFeature(inFeatureName);
+    }
 }

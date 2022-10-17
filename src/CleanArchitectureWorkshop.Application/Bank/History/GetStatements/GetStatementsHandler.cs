@@ -14,7 +14,7 @@ public class GetStatementsHandler : IRequestHandler<GetStatementsQuery, GetState
 
     public async Task<GetStatementsResponse> Handle(GetStatementsQuery request, CancellationToken cancellationToken)
     {
-        var account = await this.repository.GetAccountHistory();
+        var account = await this.repository.GetAccountHistoryAsync();
         var operations = account.GetOperations();
         var statements = new Stack<StatementModel>();
         operations

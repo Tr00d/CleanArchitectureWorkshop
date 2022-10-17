@@ -27,18 +27,17 @@ public class FakeHttpClient
         return await this.HttpResponse.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
     }
 
-    public async Task ProcessRequest(HttpMethod method, string relativeUri) => this.HttpResponse =
-        await this.ProcessRequest(await this.CreateRequestAsync(method, relativeUri).ConfigureAwait(false))
-            .ConfigureAwait(false);
+    public async Task ProcessRequest(HttpMethod method, string relativeUri) =>
+        this.HttpResponse =
+            this.HttpResponse = await this.ProcessRequest(await this.CreateRequestAsync(method, relativeUri));
 
     public async Task ProcessRequest<TRequest>(HttpMethod method, string relativeUri, TRequest data) =>
         this.HttpResponse = await this
-            .ProcessRequest(await this.CreateRequestAsync(method, relativeUri, data).ConfigureAwait(false))
-            .ConfigureAwait(false);
+            .ProcessRequest(await this.CreateRequestAsync(method, relativeUri, data));
 
     private async Task<HttpRequestMessage> CreateRequestAsync<T>(HttpMethod method, string relativeUri, T data)
     {
-        HttpRequestMessage requestMessage = await this.CreateRequestAsync(method, relativeUri).ConfigureAwait(false);
+        var requestMessage = await this.CreateRequestAsync(method, relativeUri);
         requestMessage.Content =
             new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
         return requestMessage;
@@ -55,5 +54,5 @@ public class FakeHttpClient
         });
 
     private async Task<HttpResponseMessage> ProcessRequest(HttpRequestMessage message) =>
-        await this.Client.SendAsync(message).ConfigureAwait(false);
+        await this.Client.SendAsync(message);
 }
