@@ -44,7 +44,7 @@ public class StringCalculator
         return theNumber;
     }
 
-    private char GetCustomSeparator(string numbers)
+    private static char GetCustomSeparator(string numbers)
     {
         return numbers[2];
     }

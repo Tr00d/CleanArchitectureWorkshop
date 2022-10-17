@@ -20,6 +20,7 @@ public class HistoryRepositoryTest : IDisposable
     public void Dispose()
     {
         this.dataBuilder.Context.Database.EnsureDeleted();
+        GC.SuppressFinalize(this);
     }
 
     [Fact]

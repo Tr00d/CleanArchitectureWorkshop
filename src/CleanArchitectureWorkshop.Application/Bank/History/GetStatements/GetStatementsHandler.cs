@@ -17,7 +17,7 @@ public class GetStatementsHandler : IRequestHandler<GetStatementsQuery, GetState
         var account = await this.repository.GetAccountHistoryAsync();
         var operations = account.GetOperations();
         var statements = new Stack<StatementModel>();
-        operations
+        _ = operations
             .OrderBy(operation => operation.Date)
             .Aggregate(0d, (runningBalance, operation) =>
             {
