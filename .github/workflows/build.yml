@@ -25,7 +25,7 @@ jobs:
       - name: Test
         id: test
         run: |
-          dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage.xml'
+          dotnet-coverage collect 'dotnet test --no-build' -f xml  -o 'coverage.xml'
           
       - uses: actions/upload-artifact@master
         with:
@@ -51,16 +51,22 @@ jobs:
          dotnet tool update --global dotnet-sonarscanner
           
       - uses: actions/download-artifact@v3
+        with:
+          artifact_name: coverage-file
+          rename: coverage.xml
           
       - name: Display structure of downloaded files
         run: dir
-          
+               
+      - name: Display structure of downloaded files
+        run: dir coverage-file
+
       - name: Sonarsource Coverage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          dotnet-sonarscanner begin /k:"Tr00d_CleanArchitectureWorkshop" /o:"tr00d-orga" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
+          dotnet-sonarscanner begin /k:"Tr00d_CleanArchitectureWorkshop" /o:"tr00d-orga" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage-file/coverage.xml
           dotnet build --no-incremental
           dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
