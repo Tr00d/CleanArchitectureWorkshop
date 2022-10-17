@@ -13,7 +13,7 @@ public class HistoryRepositoryTest : IDisposable
 
     public HistoryRepositoryTest()
     {
-        this.dataBuilder = BankDataBuilder.Build();
+        this.dataBuilder = BankDataBuilder.Build(nameof(HistoryRepositoryTest));
         this.repository = new HistoryRepository(this.dataBuilder.Context);
     }
 

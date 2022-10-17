@@ -1,4 +1,5 @@
 ﻿using CleanArchitectureWorkshop.Acceptance.Context;
+using CleanArchitectureWorkshop.Infrastructure.Bank;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Respawn;
@@ -10,11 +11,13 @@ public class RespawnHook
 {
     private static Checkpoint? checkpoint;
     private static string connectionString = string.Empty;
-    private readonly ApplicationContext context;
+    private static BankContext bankContext;
 
     public RespawnHook(ApplicationContext context)
     {
-        this.context = context;
+        var configuration = context.ServiceProvider.GetRequiredService<IConfiguration>();
+        connectionString = configuration.GetConnectionString("Database");
+        bankContext = context.ServiceProvider.GetRequiredService<BankContext>();
     }
 
     [BeforeTestRun]
@@ -23,8 +26,6 @@ public class RespawnHook
     [BeforeScenario]
     public async Task RespawnDatabaseBeforeScenario()
     {
-        var configuration = this.context.ServiceProvider.GetRequiredService<IConfiguration>();
-        connectionString = configuration.GetConnectionString("Database");
         await ResetCheckpoint();
     }
 
@@ -37,5 +38,11 @@ public class RespawnHook
     }
 
     [AfterTestRun]
-    public static async Task RespawnDatabaseAfterTestRun() => await ResetCheckpoint();
+    public static async Task RespawnDatabaseAfterTestRun() => await TearDownDatabase();
+
+    private static async Task TearDownDatabase()
+    {
+        await bankContext.Database.EnsureDeletedAsync();
+        await bankContext.DisposeAsync();
+    }
 }
