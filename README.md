@@ -1,5 +1,7 @@
 # CleanArchitectureWorkshop
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Tr00d_CleanArchitectureWorkshop&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Tr00d_CleanArchitectureWorkshop)
+
 The project initially contains an endpoint to retrieve operations from the current account.
 
 # Exercise
