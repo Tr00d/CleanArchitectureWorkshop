@@ -29,15 +29,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      
-      - name: Install SonarCloud scanner
-        run: |
-         dotnet tool update --global dotnet-sonarscanner
-          
-      - name: Install coverlet
-        id: install-coverlet
-        run: |
-          dotnet tool install --global dotnet-coverage
           
       - name: Docker Compose Action
         uses: isbang/compose-action@v1.2.0
